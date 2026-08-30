@@ -121,7 +121,7 @@ echo "OK: przywrócono wiedza/zrodlo z $NEWEST_BACKUP"
 > - **`pomiń`** → zostawiam (kolejna aktualizacja może to nadpisać)"
 
 ```bash
-TIMESTAMP=$(python3 -c "from datetime import datetime; print(datetime.now().strftime('%Y-%m-%d-%H-%M-%S-%f'))")
+TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
 mv wiedza/zrodlo.new "wiedza/zrodlo.new.failed-${TIMESTAMP}"
 ```
 
@@ -164,7 +164,7 @@ gh api "repos/${REPO}/git/trees/HEAD?recursive=1" --jq '.tree[].path'
 
 ```bash
 if [ -f wiedza/zrodlo/VERSION.json ]; then
-  LOCAL_SHA=$(python3 -c "import json; print(json.load(open('wiedza/zrodlo/VERSION.json'))['sha'])")
+  LOCAL_SHA=$(grep -o '"sha"[[:space:]]*:[[:space:]]*"[^"]*"' wiedza/zrodlo/VERSION.json | cut -d'"' -f4)
   echo "Local SHA:  ${LOCAL_SHA}"
 fi
 ```
@@ -260,7 +260,7 @@ Wszystkie operacje modyfikujące `wiedza/zrodlo/` idą w **jednym bloku bash** z
 
 ```bash
 set -e
-TIMESTAMP=$(python3 -c "from datetime import datetime; print(datetime.now().strftime('%Y-%m-%d-%H-%M-%S-%f'))")
+TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
 NEW_DIR="wiedza/zrodlo.new"
 BACKUP="wiedza/zrodlo.backup-${TIMESTAMP}"
 EXPECTED=32
@@ -293,23 +293,24 @@ mkdir -p "$NEW_DIR"
 cp "${TMP}"/*.md "$NEW_DIR"/
 
 # --- Krok 8: VERSION.json + walidacja ---
-python3 -c "
-import json
-from datetime import datetime, timezone
-data = {
-    'sha': '${SHA}',
-    'commit_date': '${DATE}',
-    'pobrane': datetime.now(timezone.utc).isoformat(timespec='seconds'),
-    'plikow': ${EXPECTED},
-    'zrodlo': 'https://github.com/${REPO}'
+POBRANE=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+cat > "${NEW_DIR}/VERSION.json" <<EOF
+{
+  "sha": "${SHA}",
+  "commit_date": "${DATE}",
+  "pobrane": "${POBRANE}",
+  "plikow": ${EXPECTED},
+  "zrodlo": "https://github.com/${REPO}"
 }
-with open('${NEW_DIR}/VERSION.json', 'w', encoding='utf-8') as f:
-    json.dump(data, f, indent=2, ensure_ascii=False)
-"
+EOF
 
 COUNT=$(ls "$NEW_DIR"/*.md 2>/dev/null | wc -l | tr -d ' ')
 [ "$COUNT" = "$EXPECTED" ] || { echo "BŁĄD walidacji: oczekiwane ${EXPECTED}, znalezione $COUNT"; exit 1; }
-python3 -c "import json; json.load(open('${NEW_DIR}/VERSION.json'))"
+# Walidacja VERSION.json: pięć kluczy obecnych i plik się domyka.
+for klucz in sha commit_date pobrane plikow zrodlo; do
+  grep -q "\"${klucz}\"" "${NEW_DIR}/VERSION.json" || { echo "BŁĄD: VERSION.json bez klucza ${klucz}"; exit 1; }
+done
+tail -c 2 "${NEW_DIR}/VERSION.json" | grep -q '}' || { echo "BŁĄD: VERSION.json ucięty"; exit 1; }
 
 # --- Krok 9: atomowy swap przez 2x mv ---
 if [ -d wiedza/zrodlo ]; then
@@ -353,7 +354,7 @@ Powiedz uczniowi:
 ### Awaryjny manualny rollback (bez `rm -rf`)
 
 ```bash
-TIMESTAMP=$(python3 -c "from datetime import datetime; print(datetime.now().strftime('%Y-%m-%d-%H-%M-%S-%f'))")
+TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
 mv wiedza/zrodlo "wiedza/zrodlo.failed-${TIMESTAMP}"
 mv wiedza/zrodlo.backup-<TIMESTAMP_BACKUPU> wiedza/zrodlo
 ```
@@ -385,7 +386,7 @@ Gdy uczeń mówi "sprawdź czy baza aktualna": wykonaj **kroki 1-5**, **bez krok
 2. Pokaż listę z datami i SHA (z `VERSION.json` w każdym backupie)
 3. Po wyborze:
    ```bash
-   TIMESTAMP=$(python3 -c "from datetime import datetime; print(datetime.now().strftime('%Y-%m-%d-%H-%M-%S-%f'))")
+   TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
    mv wiedza/zrodlo "wiedza/zrodlo.failed-${TIMESTAMP}"
    mv "wiedza/zrodlo.backup-${WYBRANY}" wiedza/zrodlo
    ```

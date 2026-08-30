@@ -10,6 +10,8 @@ go.work
 go.work.sum
 vendor/
 bin/
+# binarka narzędzia postep — budowana lokalnie przez postep.sh
+.claude/skills/postep/.bin/
 # binarki bez rozszerzenia budowane w katalogach zadań
 kurs/zadania/**/[a-z]*[!.]
 

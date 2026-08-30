@@ -22,8 +22,8 @@ Możesz **pisać** do:
 - ✅ `kurs/lekcje/*.md` (notatki ucznia z lekcji)
 - ✅ `kurs/zadania/**/*.go` (kod ucznia — choć preferowane, by uczeń pisał sam)
 - ✅ `kurs/projekt/**` (projekt z modułu 12)
-- ✅ `postep/student.json` — **TYLKO** przez `python3 .claude/skills/postep/postep.py <cmd>`
-- ✅ `postep/backups/` (robi to skrypt postep.py)
+- ✅ `postep/student.json` — **TYLKO** przez `bash .claude/skills/postep/postep.sh <cmd>`
+- ✅ `postep/backups/` (robi to narzędzie `postep`)
 - ✅ `postep/archiwum/` (robi to skill reset-kursu)
 - ✅ Pliki tymczasowe w `/tmp/`
 
@@ -56,7 +56,7 @@ Deaktywacja:
 
 ## Wyjątki specjalne
 
-- **Onboarding** (gdy `student.json` nie istnieje) — możesz tworzyć `student.json` przez `postep.py init`. To nie wymaga trybu autora.
+- **Onboarding** (gdy `student.json` nie istnieje) — możesz tworzyć `student.json` przez `postep.sh init`. To nie wymaga trybu autora.
 - **Skill `baza-wiedzy`** (odświeżanie z repo) — wymaga jawnego potwierdzenia ucznia, ale nie trybu autora (to nie jest zmiana curriculum, tylko aktualizacja mirror).
 - **Skill `reset-kursu`** — nie wymaga trybu autora (czyści stan ucznia, nie curriculum).
 
@@ -221,6 +221,9 @@ Jeśli uczeń jawnie poprosi o usunięcie (`usuń stare backupy`) — pokaż lis
 | `go test ...` | ❌ | **wykonuje kod ucznia** (testy to też kod) |
 | `go build -o <plik>` | ❌ | zaśmieca katalog ucznia binarką |
 | `go install` | ❌ | instaluje binarkę w systemie |
+| `bash .claude/skills/postep/postep.sh ...` | ✅ | **narzędzie kursu, nie kod ucznia** — buduje własną binarkę do `.claude/skills/postep/.bin/` |
+
+**Zakaz dotyczy kodu ucznia, nie narzędzi kursu.** `postep.sh` i `check_syntax.sh` są napisane przez autora kursu, robią dokładnie jedną rzecz i nie wykonują niczego, co uczeń napisał. Wolno je wywoływać zawsze. Nie rozciągaj tego wyjątku na nic więcej: kod z `kurs/zadania/`, `kurs/projekt/` i wszystko, co uczeń wklei do czatu, pozostaje nieuruchamialne.
 
 Pomocnik do sprawdzania: `bash .claude/skills/review-kodu/check_syntax.sh <plik.go>` (składnia + formatowanie) albo `bash .claude/skills/review-kodu/check_syntax.sh --build <katalog>` (kompilacja bez zapisu). Helper sam wchodzi do katalogu zadania, więc działa z dowolnego miejsca — surowe `go vet` i `go build` już nie, im trzeba `go.mod` w górę drzewa. Szczegóły w skill `review-kodu`.
 
@@ -260,14 +263,14 @@ Każda komenda terminalowa, którą pokazujesz uczniowi, **MUSI** używać warto
 **Procedura na start każdej sesji:**
 1. Odczytaj `srodowisko` z `student.json`:
    ```bash
-   python3 .claude/skills/postep/postep.py read --field srodowisko
+   bash .claude/skills/postep/postep.sh read --field srodowisko
    ```
 2. Zapamiętaj `go_cmd`, `go_version` i `system` do końca sesji
 3. We wszystkich poleceniach dla ucznia używaj tych wartości
 
 **Jeśli `srodowisko.go_cmd` jest puste** (stary plik lub niezakończony onboarding):
 1. Zapytaj: "Na jakim systemie pracujesz: macOS, Linux czy Windows?"
-2. Zaktualizuj przez `postep.py update-srodowisko --system X --go-cmd Y --go-version Z`
+2. Zaktualizuj przez `postep.sh update-srodowisko --system X --go-cmd Y --go-version Z`
 3. Kontynuuj
 
 **Lekcje w `wiedza/lekcje/` używają konwencji macOS/Linux** (`./nazwa`, `ls`, `cat`). Tłumacz na bieżąco dla Windows:

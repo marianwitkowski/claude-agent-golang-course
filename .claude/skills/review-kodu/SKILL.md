@@ -58,7 +58,7 @@ Dozwolone jest też samodzielne `go vet` — analiza statyczna, nie uruchamia pr
 # Reguła komend — używaj wartości z `student.json`
 
 ```bash
-python3 .claude/skills/postep/postep.py read --field srodowisko
+bash .claude/skills/postep/postep.sh read --field srodowisko
 ```
 Komenda `go` jest ta sama wszędzie, ale konwencje powłoki nie: Windows → `.\program.exe`, `type` zamiast `cat`. Jeśli `go_cmd` zawiera pełną ścieżkę (obejście PATH), używaj jej.
 

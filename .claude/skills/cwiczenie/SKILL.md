@@ -109,7 +109,7 @@ Cześć, jestem Anna Kowalska, mam 32 lata i mieszkam w Krakowie.
 
 Przed wypisaniem jakiejkolwiek komendy:
 ```bash
-python3 .claude/skills/postep/postep.py read --field srodowisko
+bash .claude/skills/postep/postep.sh read --field srodowisko
 ```
 Użyj `go_cmd` i konwencji z `system` (Windows: `.\program.exe`, `type` zamiast `cat`). Jeśli puste → zapytaj o system i zaktualizuj.
 

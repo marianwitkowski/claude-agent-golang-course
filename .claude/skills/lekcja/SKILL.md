@@ -14,7 +14,7 @@ Doprowadzić ucznia do **samodzielnego zrozumienia** jednego konceptu Go w ciąg
 ## A. Odczytaj środowisko ucznia
 
 ```bash
-python3 .claude/skills/postep/postep.py read --field srodowisko
+bash .claude/skills/postep/postep.sh read --field srodowisko
 ```
 
 Zapamiętaj `go_cmd`, `go_version` i `system` na całą sesję.
@@ -22,7 +22,7 @@ Zapamiętaj `go_cmd`, `go_version` i `system` na całą sesję.
 - Lekcje w `wiedza/lekcje/` używają konwencji **macOS/Linux**. Uczeń na Windows → tłumacz `./program` na `.\program.exe`, `cat` na `type`, `export X=y` na `$env:X="y"`. To NIENEGOCJOWALNE.
 - Sama komenda `go` jest identyczna wszędzie — chyba że `go_cmd` zawiera pełną ścieżkę (obejście problemu z PATH); wtedy używaj tej ścieżki.
 - **Sprawdź `go_version`.** Jeśli < 1.22 → zatrzymaj lekcję i wywołaj skill `setup-go`. Lekcje 5.2 i 11.1 dadzą na starszym Go cichy błędny wynik.
-- Jeśli pole puste → zapytaj o system, zaktualizuj przez `postep.py update-srodowisko`.
+- Jeśli pole puste → zapytaj o system, zaktualizuj przez `postep.sh update-srodowisko`.
 
 ## B. Wczytaj bazę wiedzy
 

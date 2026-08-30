@@ -48,7 +48,7 @@ Agent `go-tutor` przeprowadzi Cię przez:
 │       ├── reset-kursu/                # reset miękki/pełny z backupem
 │       ├── pomoc/                      # lista komend w czacie
 │       ├── baza-wiedzy/                # odświeżanie z repozytoriów źródłowych
-│       └── postep/                     # śledzenie postępu (postep.py)
+│       └── postep/                     # śledzenie postępu (narzędzie w Go)
 ├── wiedza/                             # lokalna baza wiedzy
 │   ├── zrodlo/                         # mirror golang-for-python-developers (32 pliki)
 │   ├── przyklady/                      # mirror golang-examples (13) + kod/ z golang20230314 (24 .go)
@@ -204,7 +204,6 @@ Komendy wpisujesz w Claude Code — to **frazy w języku naturalnym**, nie forma
 - **Go 1.22 lub nowsze** — to twarda granica. Od 1.22 zmienna pętli `for` powstaje na nowo w każdej iteracji; na starszych wersjach lekcje 5.2 i 11.1 dadzą **cichy, błędny wynik**. Sprawdzenie i instalacja przez skill `setup-go`.
 - **Claude Code** (https://claude.com/code)
 - **Edytor tekstu** — rekomendacja: VS Code + rozszerzenie Go (działa identycznie na każdym systemie)
-- **Python 3** — wyłącznie dla pomocniczego skryptu `postep.py`, który zapisuje stan ucznia. Nie jest przedmiotem kursu ani nie uruchamiasz go ręcznie; jest w każdym systemie z tej listy domyślnie.
 
 > 💡 **Notatka o komendach:** wszystkie komendy `go ...` są identyczne na każdym systemie. Różnią się tylko komendy powłoki (`./program` kontra `.\program.exe`, `cat` kontra `type`). Agent tłumaczy je automatycznie; pełna mapa różnic w `kurs/JAK-PISAC-KOD.md` (sekcja 3) i w skillu `setup-go`.
 

@@ -1,11 +1,11 @@
 ---
 name: postep
-description: Czyta i atomowo aktualizuje plik postep/student.json przez helper-skrypt postep.py. Każda modyfikacja przechodzi przez atomowy protokół (backup + walidacja + atomic mv) wykonywany przez skrypt — agent NIE składa JSON-a samodzielnie. Użyj na początku sesji (odczyt) i po każdej istotnej zmianie (zapis).
+description: Czyta i atomowo aktualizuje plik postep/student.json przez narzędzie postep napisane w Go. Każda modyfikacja przechodzi przez atomowy protokół (backup + walidacja + atomic rename) wykonywany przez narzędzie — agent NIE składa JSON-a samodzielnie. Użyj na początku sesji (odczyt) i po każdej istotnej zmianie (zapis).
 ---
 
 # Cel
 
-Trzymać **jeden** plik z pełnym stanem ucznia (`postep/student.json`), z gwarancją, że żadna operacja go nie uszkodzi — wszystkie zapisy idą przez deterministyczny skrypt, **nie przez ręczne składanie JSON-a przez agenta**.
+Trzymać **jeden** plik z pełnym stanem ucznia (`postep/student.json`), z gwarancją, że żadna operacja go nie uszkodzi — wszystkie zapisy idą przez deterministyczne narzędzie, **nie przez ręczne składanie JSON-a przez agenta**.
 
 # Zasada twarda — kluczowa
 
@@ -13,12 +13,20 @@ Trzymać **jeden** plik z pełnym stanem ucznia (`postep/student.json`), z gwara
 
 Wszystkie operacje przez:
 ```bash
-python3 .claude/skills/postep/postep.py <komenda> [argumenty]
+bash .claude/skills/postep/postep.sh <komenda> [argumenty]
 ```
 
-Skrypt wykonuje 7-krokowy protokół: read → migrate → backup → modify → write tmp → validate → atomic mv. Agent tylko **woła go z argumentami**.
+Narzędzie wykonuje 7-krokowy protokół: odczyt → migracja → backup → modyfikacja → zapis `.tmp` → walidacja → atomowy `rename`. Agent tylko **woła je z argumentami**.
 
-> **Uwaga:** `postep.py` to narzędzie kursu, nie materiał do nauki. Uczeń nigdy go nie uruchamia ani nie czyta — robisz to wyłącznie ty. Nie omawiaj go na lekcji.
+## Co to jest i dlaczego przez wrapper
+
+`postep` to program w Go (`postep.go`, biblioteka standardowa, bez zależności) w osobnym module `.claude/skills/postep/`. Wrapper `postep.sh`:
+- wylicza katalog główny projektu ze swojej własnej ścieżki, więc **wołasz go z dowolnego miejsca** — z korzenia repozytorium tak samo jak z `kurs/zadania`
+- buduje binarkę do `.claude/skills/postep/.bin/` przy pierwszym użyciu i przebudowuje ją tylko po zmianie źródeł (kolejne wywołania są natychmiastowe)
+
+To **jedyne** miejsce, w którym wolno ci wywołać `go build`, i dotyczy narzędzia kursu, nie kodu ucznia. Zakaz uruchamiania kodu ucznia obowiązuje bez zmian.
+
+> **Uwaga:** `postep` to narzędzie kursu, nie materiał do nauki. Uczeń nigdy go nie uruchamia ani nie czyta — robisz to wyłącznie ty. Nie omawiaj go na lekcji, nawet gdy jesteście przy module 9 albo 10 i wygląda na dobry przykład.
 
 # Schemat student.json (schema_version 2)
 
@@ -57,6 +65,8 @@ Skrypt wykonuje 7-krokowy protokół: read → migrate → backup → modify →
 - v0 (bez `schema_version`) → v1 (dopisuje pole)
 - v1 → v2 (dopisuje puste `srodowisko`)
 
+**Pola z nowszego schematu są zachowywane.** Jeśli plik zawiera klucze, których to narzędzie nie zna, wracają do zapisu nietknięte — starsza wersja narzędzia nie skasuje stanu, którego nie rozumie. Plik z `schema_version` wyższą niż obsługiwana jest odrzucany, a nie nadpisywany.
+
 **`go_version` zapisuj bez prefiksu `go`** — sam numer, np. `1.25.3`. To pole jest sprawdzane przed lekcjami 5.2 i 11.1 (wymagają ≥1.22).
 
 # Komendy skryptu
@@ -66,7 +76,7 @@ Wszystkie wykonują pełen protokół atomowy. **Zawsze sprawdź kod wyjścia** 
 ## Inicjalizacja (po onboardingu)
 
 ```bash
-python3 .claude/skills/postep/postep.py init \
+bash .claude/skills/postep/postep.sh init \
   --imie "Anna" \
   --cel "hobby" \
   --tempo "2-5" \
@@ -84,24 +94,24 @@ Błąd, jeśli plik już istnieje (ochrona przed nadpisaniem).
 ## Odczyt
 
 ```bash
-python3 .claude/skills/postep/postep.py read
-python3 .claude/skills/postep/postep.py read --field aktualna_lekcja
-python3 .claude/skills/postep/postep.py read --field srodowisko
-python3 .claude/skills/postep/postep.py read --field srodowisko.go_cmd
-python3 .claude/skills/postep/postep.py read --field do_powtorki
+bash .claude/skills/postep/postep.sh read
+bash .claude/skills/postep/postep.sh read --field aktualna_lekcja
+bash .claude/skills/postep/postep.sh read --field srodowisko
+bash .claude/skills/postep/postep.sh read --field srodowisko.go_cmd
+bash .claude/skills/postep/postep.sh read --field do_powtorki
 ```
 
 ## Ustawienie pola
 
 ```bash
-python3 .claude/skills/postep/postep.py set --field aktualna_lekcja --value "4.2"
-python3 .claude/skills/postep/postep.py set --field srodowisko.edytor --value "GoLand"
+bash .claude/skills/postep/postep.sh set --field aktualna_lekcja --value "4.2"
+bash .claude/skills/postep/postep.sh set --field srodowisko.edytor --value "GoLand"
 ```
 
 ## Dopisanie ukończonej lekcji
 
 ```bash
-python3 .claude/skills/postep/postep.py add-lekcja --id "4.1" --trudnosc 3
+bash .claude/skills/postep/postep.sh add-lekcja --id "4.1" --trudnosc 3
 ```
 
 `--trudnosc` to 1-5 (subiektywna ocena ucznia: "1 = banalne, 5 = bardzo trudne"). Pytaj po lekcji. Skrypt sam aktualizuje `ostatnia_sesja`.
@@ -109,16 +119,16 @@ python3 .claude/skills/postep/postep.py add-lekcja --id "4.1" --trudnosc 3
 ## Dopisanie ukończonego ćwiczenia
 
 ```bash
-python3 .claude/skills/postep/postep.py add-cwiczenie --lekcja "4.1" --poziom warmup
+bash .claude/skills/postep/postep.sh add-cwiczenie --lekcja "4.1" --poziom warmup
 # --poziom: warmup | main | star   (odpowiada 🔥 / ⭐ / ⚡)
 ```
 
 ## Mocne strony / do powtórki
 
 ```bash
-python3 .claude/skills/postep/postep.py add-mocna-strona "samodzielne czytanie komunikatów kompilatora"
-python3 .claude/skills/postep/postep.py add-do-powtorki --temat "odbiornik wskaźnikowy" --lekcja "7.2"
-python3 .claude/skills/postep/postep.py remove-do-powtorki --temat "odbiornik wskaźnikowy"
+bash .claude/skills/postep/postep.sh add-mocna-strona "samodzielne czytanie komunikatów kompilatora"
+bash .claude/skills/postep/postep.sh add-do-powtorki --temat "odbiornik wskaźnikowy" --lekcja "7.2"
+bash .claude/skills/postep/postep.sh remove-do-powtorki --temat "odbiornik wskaźnikowy"
 ```
 
 `add-mocna-strona` trzyma max 7 najnowszych, duplikaty pomija.
@@ -127,7 +137,7 @@ python3 .claude/skills/postep/postep.py remove-do-powtorki --temat "odbiornik ws
 ## Środowisko
 
 ```bash
-python3 .claude/skills/postep/postep.py update-srodowisko \
+bash .claude/skills/postep/postep.sh update-srodowisko \
   --system "Windows" \
   --go-cmd "go" \
   --go-version "1.25.3" \
@@ -141,7 +151,7 @@ Można podać dowolny podzbiór pól — tylko one się zmienią.
 ## Notatki tutora (prywatne dla agenta)
 
 ```bash
-python3 .claude/skills/postep/postep.py add-notatka "Anna chce kiedyś napisać narzędzie do porządkowania zdjęć"
+bash .claude/skills/postep/postep.sh add-notatka "Anna chce kiedyś napisać narzędzie do porządkowania zdjęć"
 ```
 
 Max 20 najnowszych. **Nie pokazuj uczniowi**, jeśli sam nie zapyta.
@@ -151,7 +161,7 @@ Max 20 najnowszych. **Nie pokazuj uczniowi**, jeśli sam nie zapyta.
 ## Zakończenie sesji
 
 ```bash
-python3 .claude/skills/postep/postep.py end-session
+bash .claude/skills/postep/postep.sh end-session
 ```
 
 Ustawia `ostatnia_sesja=dziś`, `liczba_sesji+=1`. Wywołuj **raz** na koniec każdej sesji rozmowy.
@@ -159,7 +169,7 @@ Ustawia `ostatnia_sesja=dziś`, `liczba_sesji+=1`. Wywołuj **raz** na koniec ka
 ## Recovery (gdy student.json uszkodzony)
 
 ```bash
-python3 .claude/skills/postep/postep.py recovery
+bash .claude/skills/postep/postep.sh recovery
 ```
 
 Skrypt szuka najnowszego **działającego** backupu w `postep/backups/`, przenosi uszkodzony do `postep/student.broken.<TS>.json` (NIE kasuje), kopiuje backup na miejsce, wypisuje podsumowanie przywróconego stanu.
@@ -170,7 +180,7 @@ Skrypt szuka najnowszego **działającego** backupu w `postep/backups/`, przenos
 
 1. **Odczyt:**
    ```bash
-   python3 .claude/skills/postep/postep.py read
+   bash .claude/skills/postep/postep.sh read
    ```
 2. Błąd "plik nie istnieje" → uczeń nowy, uruchom onboarding
 3. Błąd "JSON nie parsuje się" → `recovery` (zapytaj ucznia najpierw)
@@ -187,7 +197,7 @@ Skrypt szuka najnowszego **działającego** backupu w `postep/backups/`, przenos
 Po wywiadzie + skill `setup-go` (który zna system, komendę i wersję):
 
 ```bash
-python3 .claude/skills/postep/postep.py init \
+bash .claude/skills/postep/postep.sh init \
   --imie <imię_z_wywiadu> \
   --cel <cel> \
   --tempo <tempo> \
@@ -208,22 +218,22 @@ Sekcja **Po lekcji** w pliku lekcji podaje dokładnie, jaka jest następna lekcj
 ## Po każdym ukończonym ćwiczeniu
 
 ```bash
-python3 .claude/skills/postep/postep.py add-cwiczenie --lekcja <X.Y> --poziom <warmup|main|star>
+bash .claude/skills/postep/postep.sh add-cwiczenie --lekcja <X.Y> --poziom <warmup|main|star>
 ```
 
 ## Moduł 12 — projekt
 
 Lekcja 12.2 rozciąga się na kilka sesji. Nie czekaj z zapisem do jej końca:
 ```bash
-python3 .claude/skills/postep/postep.py add-notatka "projekt: dodany zapis do JSON, działa; następnie argumenty CLI"
-python3 .claude/skills/postep/postep.py end-session
+bash .claude/skills/postep/postep.sh add-notatka "projekt: dodany zapis do JSON, działa; następnie argumenty CLI"
+bash .claude/skills/postep/postep.sh end-session
 ```
 `add-lekcja --id 12.2` dopisz dopiero, gdy etap 1 projektu jest skończony.
 
 ## Koniec sesji rozmowy
 
 ```bash
-python3 .claude/skills/postep/postep.py end-session
+bash .claude/skills/postep/postep.sh end-session
 ```
 
 # Backupy
@@ -242,7 +252,7 @@ mkdir -p postep/backups/_old
 # Przy >7 dniach przerwy
 
 ```bash
-LAST=$(python3 .claude/skills/postep/postep.py read --field ostatnia_sesja | tr -d '"')
+LAST=$(bash .claude/skills/postep/postep.sh read --field ostatnia_sesja | tr -d '"')
 ```
 
 Powiedz uczniowi:
@@ -259,12 +269,24 @@ Powiedz uczniowi:
 
 # Test poprawności (dla autora)
 
+Narzędzie ma własny moduł, więc sprawdzasz je jak każdy kod Go:
+
 ```bash
-cd /tmp && rm -rf test-postep && mkdir -p test-postep && cd test-postep
-cp /Users/marian/Projects/ITMOBILE-agent-nauka-golang/.claude/skills/postep/postep.py .
-python3 postep.py init --imie Test --cel hobby --tempo "2-5" --system macOS --go-cmd go --go-version 1.25.3
-python3 postep.py add-lekcja --id 1.1 --trudnosc 2
-python3 postep.py read --field srodowisko.go_version
-python3 postep.py read
-cd /tmp && rm -rf test-postep
+cd .claude/skills/postep
+gofmt -l .          # cisza = sformatowane
+go vet ./...        # cisza = brak zastrzeżeń
+go build -o /dev/null .
+```
+
+Test na żywym stanie — **tylko gdy `postep/student.json` nie istnieje**, inaczej `init` odmówi:
+
+```bash
+cd /Users/marian/Projects/ITMOBILE-agent-nauka-golang
+P() { bash .claude/skills/postep/postep.sh "$@"; }
+
+P init --imie Test --cel hobby --tempo "2-5" --system macOS --go-cmd go --go-version 1.25.3
+P add-lekcja --id 1.1 --trudnosc 2
+P read --field srodowisko.go_version
+P read
+rm -f postep/student.json && rm -rf postep/backups   # sprzątanie po teście
 ```

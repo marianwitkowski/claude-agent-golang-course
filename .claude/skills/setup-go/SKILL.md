@@ -224,7 +224,7 @@ Nie idź dalej, dopóki uczeń nie potwierdzi.
 Po zakończonym setupie ZAWSZE zapisz środowisko (podczas onboardingu może być od razu w `init`, później przez `update-srodowisko`):
 
 ```bash
-python3 .claude/skills/postep/postep.py update-srodowisko \
+bash .claude/skills/postep/postep.sh update-srodowisko \
   --system "macOS" \
   --go-cmd "go" \
   --go-version "1.25.3" \
@@ -246,7 +246,7 @@ python3 .claude/skills/postep/postep.py update-srodowisko \
 go version | awk '{print $3}' | sed 's/^go//'
 ```
 
-Zapis przez `postep.py` jest atomowy — nie ma ryzyka uszkodzenia `student.json`.
+Zapis przez narzędzie `postep` jest atomowy — nie ma ryzyka uszkodzenia `student.json`.
 
 # Zwrotka do agenta-rodzica
 

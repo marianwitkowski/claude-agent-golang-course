@@ -99,10 +99,68 @@ Przeczytaj **[`kurs/JAK-PISAC-KOD.md`](kurs/JAK-PISAC-KOD.md)** — 5 minut, ale
 - cały workflow ćwiczenia od początku do końca
 - najczęstsze pułapki początkujących
 
+## Metoda
+
+Kurs nie tłumaczy — pyta. To brzmi jak slogan, więc poniżej konkretnie, jak to działa w praktyce.
+
+### Rytm 3-krokowy
+
+Czysta metoda sokratejska dla kogoś, kto nigdy nie programował, kończy się frustracją: gdy nie masz jeszcze modelu tego, jak działa program, kolejne pytania niczego nie odsłaniają, tylko podnoszą napięcie. Dlatego agent działa w rytmie z wyjściem awaryjnym:
+
+1. **Pytanie naprowadzające** — punkt wyjścia
+2. **Utknąłeś? Jeden konkretny fakt w 1-2 zdaniach** — nie wykład
+3. **Kolejne pytanie**, już oparte na tym fakcie
+
+Różnica na przykładzie:
+
+> **Źle** — pętla pytań bez wyjścia
+> — Czemu `fmt.Println(wiek + 5)` się nie kompiluje?
+> — Jakiego typu jest `wiek`?
+> — Nie wiem.
+> — A co oznacza dodawanie? *(uczeń tkwi w miejscu)*
+
+> **Dobrze** — pytanie, fakt, pytanie
+> — Czemu `fmt.Println(wiek + 5)` się nie kompiluje?
+> — Co dokładnie powiedział kompilator? Wklej całą linię.
+> — `invalid operation: mismatched types string and untyped int`
+> — **`wiek` jest tekstem, a `5` liczbą. Go nie dodaje tekstu do liczby i niczego nie konwertuje samo z siebie.** Którą funkcją z pakietu `strconv` zamienisz `"30"` na liczbę?
+
+### Kiedy agent przestaje pytać
+
+Przejście do wyjaśnienia nie jest kwestią wyczucia — agent ma listę sygnałów: dwa razy z rzędu „nie wiem", wprost wyrażona prośba o odpowiedź, pytanie o pojęcie spoza dotychczasowych lekcji, oznaki zniechęcenia, około pięciu minut bez postępu w jednym miejscu, a także walka z komunikatem kompilatora — te w Go bywają zwięzłe do bólu, więc agent najpierw tłumaczy komunikat na polski, dopiero potem pyta. Po trzech-czterech nieudanych cyklach cofa się o poziom niżej, pokazuje **fragment** rozwiązania do dokończenia albo proponuje przerwę.
+
+### Budowa lekcji — 5 kroków
+
+| Krok | Co się dzieje |
+| --- | --- |
+| **1. Zakotwiczenie** | Pytanie o coś z życia, nie z programowania. Pętle: „jak wytłumaczysz robotowi, żeby umył 10 talerzy?". Wskaźniki: „dajesz komuś kserokopię umowy, on ją poprawia — czy twoja się zmieniła?" |
+| **2. Mostek** | Dopiero teraz pada termin techniczny i najmniejszy działający program |
+| **3. Eksperyment** | Piszesz, uruchamiasz, wklejasz wynik. Po każdym kroku pytanie: „czy tego się spodziewałeś?" |
+| **4. Pogłębienie** | Przypadki brzegowe i celowe psucie kodu, żeby zobaczyć komunikaty błędów |
+| **5. Ćwiczenie** | Zadania w trzech poziomach: 🔥 rozgrzewka, ⭐ główne, ⚡ gwiazdka |
+
+Najcenniejszy moment lekcji to ten, w którym wynik jest **inny, niż się spodziewałeś**. Materiały są tak napisane, żeby to prowokować — na przykład `len("Gołąb")` zwraca 7, nie 5, i cała lekcja o tekście jako bajtach wisi na tym zaskoczeniu.
+
+### Czego agent nie zrobi
+
+**Nie uruchomi Twojego kodu.** Żadnego `go run`, `go test`, żadnej binarki. Wolno mu wyłącznie sprawdzić składnię (`gofmt -e`), formatowanie i to, czy kod się kompiluje (`go build -o /dev/null`) — czyli operacje, które niczego nie wykonują.
+
+To nie jest ograniczenie techniczne, tylko sedno metody. Patrzenie na wynik i czytanie komunikatów kompilatora jest tą umiejętnością, której się właśnie uczysz; oddanie jej agentowi wydrążyłoby kurs z treści. Praktyczna konsekwencja: rozmowa toczy się wokół tego, co **Ty** widzisz na ekranie i wklejasz do czatu.
+
+**Nie napisze rozwiązania ćwiczenia.** Minimalny przykład dla zrozumienia pojęcia — tak. Kod, który ma być odpowiedzią na zadanie — nie.
+
+**Nie wyprzedzi programu.** Pytanie o goroutine na lekcji 3.2 dostanie jedno zdanie i „dojdziemy w module 11", nie dygresję.
+
+### Postęp między sesjami
+
+Stan nauki mieszka w `postep/student.json`: ukończone lekcje z Twoją subiektywną oceną trudności, zrobione ćwiczenia, mocne strony, tematy do powtórki. Dzięki temu każda sesja zaczyna się tam, gdzie skończyła poprzednia, a po przerwie dłuższej niż tydzień agent sam zaproponuje krótki quiz, zanim ruszycie dalej.
+
+Plik jest Twój — możesz go czytać i edytować. Nie trafia do repozytorium.
+
 ## Filozofia
 
 - **Sokratejsko, nie wykładowo.** Agent zadaje pytania zamiast wyjaśniać. To wolniejsze, ale głębsze.
-- **Nie uruchamiamy kodu za Ciebie.** Agent nigdy nie robi `go run` ani `go test` na Twoim kodzie — może najwyżej sprawdzić składnię (`gofmt -e`) i to, czy się kompiluje (`go build -o /dev/null`). Sam piszesz, sam uruchamiasz, sam czytasz wynik. To część nauki, nie ograniczenie narzędzia.
+- **Nie uruchamiamy kodu za Ciebie.** Sam piszesz, sam uruchamiasz, sam czytasz wynik — szczegóły w sekcji [Metoda](#metoda).
 - **Bez porównań do innych języków.** Kurs zakłada, że to Twój pierwszy język. Nic nie jest wyjaśniane przez „to jak w...".
 - **Postęp jest Twój.** Wszystko w `postep/student.json` — możesz przeglądać, edytować, eksportować.
 - **Twoje tempo.** Czas trwania lekcji to wskazówka, nie termin. Możesz wrócić za tydzień, agent będzie wiedział, gdzie skończyliście.

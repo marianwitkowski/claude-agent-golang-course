@@ -1,0 +1,14 @@
+# Skrypty PowerShell trafiają na Windows — wymuszamy CRLF przy checkoucie.
+# (Windows PowerShell radzi sobie z LF, ale CRLF to tam forma naturalna
+#  i unika niespodzianek w edytorach.)
+*.ps1 text eol=crlf
+
+# Wszystko, co uruchamiane przez powłoki uniksowe i przez Go, zostaje z LF —
+# skrypt bash z CRLF kończy się błędem `bad interpreter: /usr/bin/env bash^M`.
+*.sh  text eol=lf
+*.go  text eol=lf
+go.mod text eol=lf
+
+# Markdown i JSON: normalizacja w repozytorium, w katalogu roboczym jak u autora.
+*.md   text
+*.json text

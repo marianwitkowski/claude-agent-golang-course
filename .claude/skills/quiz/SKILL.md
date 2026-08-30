@@ -44,13 +44,16 @@ Sprawdza rozumienie, nie pamięć.
 
 ### C. "Znajdź błąd" / "popraw"
 ```go
-// Kompiluje się. Czemu program wypisuje 0?
+// Kompiluje się bez zastrzeżeń. Co się stanie po uruchomieniu?
 func main() {
     var m map[string]int
     m["a"] = 1
     fmt.Println(m["a"])
 }
 ```
+**Poprawna odpowiedź:** program panikuje — `panic: assignment to entry in nil map`. Sama deklaracja `var m map[string]int` daje mapę `nil`: czytać z niej wolno (dostaniesz wartość zerową), ale zapisać już nie. Mapa powstaje dopiero przez `make` albo literał.
+
+> **Uwaga dla agenta:** nie uruchamiasz kodu, więc odpowiedzi z tego banku znasz wyłącznie stąd. Jeśli uczeń twierdzi co innego niż napisano — poproś o wklejenie wyniku, zanim go poprawisz. Gdy wynik ucznia przeczy temu plikowi, **rację ma wynik**; zgłoś rozbieżność użytkownikowi zamiast upierać się przy banku.
 
 **Proporcja w pełnym quizie:** ~40% A, ~30% B, ~30% C.
 

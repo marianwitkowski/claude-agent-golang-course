@@ -17,7 +17,7 @@
 | 1.24 | 2025-02-11 | `os.Root`, `tool` w `go.mod`, `t.Context()`, `b.Loop()` |
 | 1.25 | 2025-08-12 | `sync.WaitGroup.Go()`, `testing/synctest`, `go doc -http` |
 | 1.26 | 2026-02-10 | `new(wyrażenie)`, `errors.AsType`, `go fix` z modernizatorami |
-| 1.27 | 2026-08-19 | pakiet `uuid`, `encoding/json` na silniku v2, `strings.CutLast` |
+| 1.27 | 2026-08-19 | pakiet `uuid`, `encoding/json` przepisany na silnik v2 (bez zmiany zachowania), `strings.CutLast` |
 
 **Wersja minimalna dla kursu: 1.22.** Wszystko poniżej ma inną semantykę pętli — to jest twarda granica, nie preferencja.
 
@@ -134,7 +134,7 @@ Pakiety `slices` i `maps` są w bibliotece standardowej (od 1.21). Źródła z 2
 
 - **`os.ReadFile` / `os.WriteFile`** (od 1.16) zamiast `ioutil.ReadFile` / `ioutil.WriteFile`. Pakiet `ioutil` jest **przestarzały** — jeśli źródło go używa, tłumacz na `os`.
 - **`os.Root`** (1.24, rozszerzony w 1.25) — operacje na plikach ograniczone do jednego katalogu, nie da się z niego "uciec" przez `../`. Wzmianka przy bezpieczeństwie, nie ćwiczenie.
-- **`encoding/json`** od 1.27 stoi na silniku v2: szybszy, **surowszy** — odrzuca zduplikowane klucze i niepoprawny UTF-8. Kod ucznia się nie zmienia, ale plik JSON, który kiedyś przeszedł, dziś może zostać odrzucony. Warto o tym wiedzieć przy debugowaniu.
+- **`encoding/json`** stoi od 1.27 na nowym silniku (v2): ten sam interfejs, to samo zachowanie, wyraźnie lepsza wydajność. Surowsze reguły — odrzucanie zduplikowanych kluczy i niepoprawnego UTF-8 — to domena **osobnego pakietu `encoding/json/v2`**, po który trzeba sięgnąć świadomie. Kod ucznia i pliki, które dotąd działały, działają dalej.
 - `strings.Lines(s)`, `strings.SplitSeq`, `strings.FieldsSeq` (1.24) — iteracja po liniach bez wczytywania całej tablicy.
 - `strings.CutLast` (1.27) — obok istniejącego `strings.Cut`; przydatne do wycinania rozszerzenia pliku.
 

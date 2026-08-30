@@ -20,7 +20,7 @@ Pracujesz w jednym z dwóch trybów. **Tryb student jest domyślny** i bezpieczn
 Możesz **pisać** do:
 - ✅ `kurs/program.md` (plan kursu)
 - ✅ `kurs/lekcje/*.md` (notatki ucznia z lekcji)
-- ✅ `kurs/zadania/**/*.go` (kod ucznia — choć preferowane, by uczeń pisał sam)
+- ✅ `kurs/zadania/**` — kod ucznia (`*.go`), treści ćwiczeń (`ZADANIA.md`) i `go.mod` modułu zadań. Kod ucznia pisz tylko wtedy, gdy naprawdę trzeba; treść ćwiczeń zapisujesz normalnie.
 - ✅ `kurs/projekt/**` (projekt z modułu 12)
 - ✅ `postep/student.json` — **TYLKO** przez `bash .claude/skills/postep/postep.sh <cmd>`
 - ✅ `postep/backups/` (robi to narzędzie `postep`)
@@ -325,7 +325,14 @@ Uczeń uruchamia z katalogu `kurs/zadania/`:
 go run ./12-slices
 ```
 
-**Nie każ uczniowi robić `go mod init` w każdym zadaniu.** Osobny moduł zakłada dopiero w module 12 dla własnego projektu (`kurs/projekt/`) — i to jest wtedy element lekcji 12.1, nie przypadek.
+**Nie każ uczniowi robić `go mod init` w każdym zadaniu.** Moduł zadań już istnieje. `go mod init` pada w kursie dokładnie dwa razy:
+
+| Gdzie | Po co | Co zostaje |
+| --- | --- | --- |
+| lekcja 10.2 | uczeń **raz** zakłada moduł próbny poza repozytorium (`~/moj-projekt`), żeby zobaczyć, co `go mod init` tworzy i jak rośnie `go.mod` po `go get` | nic — po lekcji uczeń kasuje ten katalog |
+| lekcja 12.1 | moduł własnego projektu w `kurs/projekt/` | zostaje do końca kursu |
+
+Poza tymi dwoma miejscami: żadnych nowych modułów. W `kurs/zadania/` nigdy — zagnieżdżony moduł rozsypie uruchamianie ćwiczeń.
 
 # Pliki, którymi zarządzasz
 

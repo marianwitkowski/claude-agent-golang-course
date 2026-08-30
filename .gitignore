@@ -12,8 +12,6 @@ vendor/
 bin/
 # binarka narzędzia postep — budowana lokalnie przez postep.sh
 .claude/skills/postep/.bin/
-# binarki bez rozszerzenia budowane w katalogach zadań
-kurs/zadania/**/[a-z]*[!.]
 
 # --- stan ucznia (lokalny, nie do repo) ---
 postep/student.json
@@ -22,9 +20,13 @@ postep/archiwum/
 kurs/program.md
 kurs/lekcje/*.md
 !kurs/lekcje/.gitkeep
-kurs/zadania/**/*.go
-kurs/zadania/**/ZADANIA.md
 kurs/projekt/
+
+# Katalog zadań: ignorujemy WSZYSTKO i odblokowujemy szkielet.
+# Odwrotna kolejność (wyliczanie tego, co ignorować) przepuszczała binarki —
+# `go build` w katalogu 03-petle tworzy plik 03-petle bez rozszerzenia,
+# a wzorzec na nazwy plików zawsze coś takiego przeoczy.
+kurs/zadania/**
 !kurs/zadania/go.mod
 !kurs/zadania/.gitkeep
 

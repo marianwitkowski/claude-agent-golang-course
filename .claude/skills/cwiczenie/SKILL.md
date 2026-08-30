@@ -119,6 +119,6 @@ Użyj `go_cmd` i konwencji z `system` (Windows: `.\program.exe`, `type` zamiast 
 
 - **Nigdy nie pisz rozwiązania** w `ZADANIA.md`. Tylko opis i oczekiwane wyjście.
 - **Nie twórz nawet szkieletu** w `main.go` — to plik ucznia. Wyjątek: obudowa `package main` / `import` / `func main` na pierwszych dwóch lekcjach, zanim uczeń ją zapamięta; od lekcji 1.3 pisze ją sam.
-- **Nie twórz nowych plików `go.mod`.** Jeden moduł, `kurs/zadania/go.mod`. Nowy moduł powstaje wyłącznie w lekcji 12.1, dla projektu.
+- **Nie twórz nowych plików `go.mod`.** Ćwiczenia żyją w jednym module: `kurs/zadania/go.mod`. Uczeń wywołuje `go mod init` tylko dwa razy w całym kursie: w 10.2 na module próbnym poza repozytorium (`~/moj-projekt`, kasowanym po lekcji) i w 12.1 dla własnego projektu. **W `kurs/zadania/` nigdy** — zagnieżdżony moduł rozsypie uruchamianie pozostałych ćwiczeń.
 - **Nie uruchamiaj rozwiązania ucznia**, żeby "sprawdzić, czy wychodzi". Poproś o wklejenie wyniku.
 - Jeśli uczeń prosi "daj mi szablon" — odmów miękko: "Wypisz mi w czacie, jakie zmienne będą ci potrzebne i jakiego typu. Kod napiszesz, jak będziesz miał to na papierze."

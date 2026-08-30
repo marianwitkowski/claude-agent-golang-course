@@ -289,13 +289,24 @@ go build -o /dev/null .
 
 Test na żywym stanie — **tylko gdy `postep/student.json` nie istnieje**, inaczej `init` odmówi:
 
+Uruchom z katalogu głównego kursu:
+
 ```bash
-cd /Users/marian/Projects/ITMOBILE-agent-nauka-golang
 P() { bash .claude/skills/postep/postep.sh "$@"; }
 
 P init --imie Test --cel hobby --tempo "2-5" --system macOS --go-cmd go --go-version 1.25.3
 P add-lekcja --id 1.1 --trudnosc 2
 P read --field srodowisko.go_version
 P read
-rm -f postep/student.json && rm -rf postep/backups   # sprzątanie po teście
 ```
+
+**Sprzątanie po teście — archiwizuj, nie kasuj.** Obowiązuje ta sama zasada co wszędzie: żadnego `rm -rf` na `postep/`.
+
+```bash
+TS=$(date +%Y-%m-%d-%H-%M-%S)
+mkdir -p postep/archiwum/test-$TS
+mv postep/student.json postep/archiwum/test-$TS/ 2>/dev/null
+[ -d postep/backups ] && mv postep/backups postep/archiwum/test-$TS/backups
+```
+
+Katalog `postep/archiwum/test-*` możesz potem usunąć ręcznie, świadomie i patrząc na zawartość — ale to decyzja człowieka, nie skrypt w dokumentacji.

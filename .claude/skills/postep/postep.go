@@ -224,19 +224,23 @@ func sciezkiDla(katalog string) Sciezki {
 	}
 }
 
-// znajdzKatalogGlowny szuka w górę katalogu zawierającego postep/ i wiedza/.
+// znajdzKatalogGlowny szuka w górę katalogu zawierającego wiedza/ i .claude/.
+//
+// Rozpoznajemy projekt po katalogach, które są w repozytorium — a nie po
+// postep/, bo ten powstaje dopiero przy pierwszym `init`. Na świeżym klonie
+// jeszcze go nie ma i szukanie po nim nie znalazłoby niczego.
 func znajdzKatalogGlowny() (string, error) {
 	kat, err := os.Getwd()
 	if err != nil {
 		return "", err
 	}
 	for {
-		if jestKatalogiem(filepath.Join(kat, "postep")) && jestKatalogiem(filepath.Join(kat, "wiedza")) {
+		if jestKatalogiem(filepath.Join(kat, "wiedza")) && jestKatalogiem(filepath.Join(kat, ".claude")) {
 			return kat, nil
 		}
 		rodzic := filepath.Dir(kat)
 		if rodzic == kat {
-			return "", errors.New("nie znalazłem katalogu głównego projektu (oczekiwane: postep/ + wiedza/); podaj -root")
+			return "", errors.New("nie znalazłem katalogu głównego projektu (oczekiwane: wiedza/ + .claude/); podaj -root")
 		}
 		kat = rodzic
 	}

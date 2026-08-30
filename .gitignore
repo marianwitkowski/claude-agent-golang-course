@@ -1,0 +1,35 @@
+# --- Go ---
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+go.work
+go.work.sum
+vendor/
+bin/
+# binarki bez rozszerzenia budowane w katalogach zadań
+kurs/zadania/**/[a-z]*[!.]
+
+# --- stan ucznia (lokalny, nie do repo) ---
+postep/student.json
+postep/backups/
+postep/archiwum/
+kurs/program.md
+kurs/lekcje/*.md
+!kurs/lekcje/.gitkeep
+kurs/zadania/**/*.go
+kurs/zadania/**/ZADANIA.md
+kurs/projekt/
+!kurs/zadania/go.mod
+!kurs/zadania/.gitkeep
+
+# --- system / edytory ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*~

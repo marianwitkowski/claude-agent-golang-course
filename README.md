@@ -233,6 +233,6 @@ Materiały zakładają czytelnika, który zna już inny język programowania; te
 
 [MIT](LICENSE) — Copyright (c) 2026 Marian Witkowski.
 
-Wolno używać, zmieniać, tłumaczyć i rozpowszechniać, także komercyjnie, **pod warunkiem zachowania informacji o autorstwie** (noty copyright i treści licencji) w każdej kopii i w każdej istotnej części. Szczegóły i wyjaśnienie po polsku — w pliku [`LICENSE`](LICENSE).
+Wolno używać, zmieniać, tłumaczyć i rozpowszechniać, także komercyjnie, **pod warunkiem zachowania informacji o autorstwie** (noty copyright i treści licencji) w każdej kopii i w każdej istotnej części. Wyjaśnienie po polsku, co to znaczy w praktyce — w pliku [`NOTICE.md`](NOTICE.md).
 
 Katalogi `wiedza/zrodlo/` i `wiedza/przyklady/` to kopie osobnych repozytoriów tego samego autora i podlegają warunkom tam podanym.

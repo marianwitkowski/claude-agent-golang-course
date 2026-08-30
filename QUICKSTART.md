@@ -9,6 +9,8 @@ Krótki przewodnik dla osoby zaczynającej naukę Go z tym kursem.
 > - `export GOOS=linux` → `$env:GOOS="linux"`
 >
 > Agent tłumaczy komendy automatycznie w trakcie sesji (jeśli w onboardingu zaznaczyłeś Windows). Ta uwaga dotyczy **ręcznego** czytania dokumentów.
+>
+> Własne narzędzia agenta (zapis postępu, sprawdzanie składni) mają wersje dla Git Basha i dla PowerShella — agent wybiera je sam podczas onboardingu. Ciebie to nie dotyczy: `go run`, `go build` i `gofmt` działają na Windows dokładnie tak samo jak wszędzie.
 
 ---
 

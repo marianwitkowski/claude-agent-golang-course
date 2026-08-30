@@ -171,6 +171,32 @@ go vet --help   # wypisuje użycie
 Powiedz uczniowi jednym zdaniem, po co są (rozwiniesz to w lekcji 1.3):
 > "`gofmt` formatuje kod — w Go jest jeden słuszny format i nie ma o czym dyskutować. `go vet` szuka podejrzanych miejsc, których kompilator nie uzna za błąd."
 
+# Krok 5B: na Windows — sprawdź, czy jest Git Bash
+
+**Tylko dla `system = Windows`.** Narzędzia kursu (`postep`, `check_syntax`) mają dwie równoważne wersje; musisz wiedzieć, której używać przez resztę kursu.
+
+```bash
+bash --version
+```
+
+- **Działa** → używasz wersji `.sh`, dokładnie jak na macOS/Linux. Zapisz `shell` jako `Git Bash`.
+- **Nie działa** (`command not found`, `nie jest rozpoznawany`) → używasz wersji `.ps1`. Zapisz `shell` jako `PowerShell`.
+
+Wersja PowerShell wywołuje się tak:
+```powershell
+powershell -ExecutionPolicy Bypass -File .claude\skills\postep\postep.ps1 read
+```
+
+`-ExecutionPolicy Bypass` jest konieczny — domyślna polityka Windows blokuje skrypty `.ps1`. Parametr działa tylko dla tego jednego wywołania i **nie zmienia ustawień systemu**. Nie proponuj uczniowi `Set-ExecutionPolicy`: to zmiana globalna, a tu niepotrzebna.
+
+**To dotyczy tylko ciebie, nie ucznia.** Uczeń pisze kod i wywołuje `go run` — te komendy są identyczne na każdym systemie. Wrappery to twoje narzędzia; nie wspominaj o nich na lekcji.
+
+Test na sucho, zanim ruszycie dalej:
+```powershell
+powershell -ExecutionPolicy Bypass -File .claude\skills\review-kodu\check_syntax.ps1 wiedza\przyklady\kod\Dzien01-01-zmienne.go
+```
+Powinno wypisać `OK: parsuje się` i `OK: sformatowany kanonicznie`. Jeśli zamiast tego widzisz błąd o polityce wykonywania — brakuje `-ExecutionPolicy Bypass`.
+
 # Krok 6: edytor
 
 Rekomendacja dla początkujących (działa na wszystkich systemach):
@@ -234,12 +260,15 @@ bash .claude/skills/postep/postep.sh update-srodowisko \
 
 **Mapowanie systemu → wartości:**
 
-| System  | `go_cmd`                    | `shell`      | Uwagi                            |
-| ------- | --------------------------- | ------------ | -------------------------------- |
-| macOS   | `go`                        | `zsh`        | pełna ścieżka tylko przy kłopocie z PATH |
-| Linux   | `go`                        | `bash`/`zsh` | jw.                              |
-| Windows | `go`                        | `PowerShell` | binarki z `.exe`, ścieżki z `\`  |
-| WSL     | `go`                        | `bash`       | traktuj jak Linux                |
+| System  | `go_cmd` | `shell`      | Wrapper narzędzi | Uwagi |
+| ------- | -------- | ------------ | ---------------- | ----- |
+| macOS   | `go`     | `zsh`        | `.sh`            | pełna ścieżka w `go_cmd` tylko przy kłopocie z PATH |
+| Linux   | `go`     | `bash`/`zsh` | `.sh`            | jw. |
+| Windows | `go`     | `Git Bash`   | `.sh`            | gdy `bash --version` działa — ścieżka domyślna |
+| Windows | `go`     | `PowerShell` | `.ps1`           | gdy Git Basha nie ma; binarki z `.exe`, ścieżki z `\` |
+| WSL     | `go`     | `bash`       | `.sh`            | traktuj jak Linux |
+
+Pole `shell` jest tym, po czym agent pozna, którego wrappera używać przez resztę kursu — wypełnij je rzetelnie.
 
 `go_version` zapisuj **bez prefiksu `go`** — sam numer, np. `1.25.3`. Wyciągnięcie z `go version`:
 ```bash

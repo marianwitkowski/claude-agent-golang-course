@@ -23,6 +23,13 @@ bash .claude/skills/review-kodu/check_syntax.sh kurs/zadania/12-slices/main.go
 bash .claude/skills/review-kodu/check_syntax.sh --build kurs/zadania/12-slices
 ```
 
+Na Windows bez Git Basha — to samo, innym wrapperem:
+```powershell
+powershell -ExecutionPolicy Bypass -File .claude\skills\review-kodu\check_syntax.ps1 kurs\zadania\12-slices\main.go
+powershell -ExecutionPolicy Bypass -File .claude\skills\review-kodu\check_syntax.ps1 --build kurs\zadania\12-slices
+```
+Wersja PowerShell kompiluje do pliku tymczasowego i od razu go kasuje (na Windows nie ma `/dev/null`) — binarka nie ląduje w katalogu ucznia.
+
 **Wyjście helpera — tryb plikowy:**
 ```
 == składnia (gofmt -e) ==

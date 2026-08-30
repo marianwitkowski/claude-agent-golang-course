@@ -43,12 +43,12 @@ Agent `go-tutor` przeprowadzi Cię przez:
 │       ├── program-kursu/              # generator programu
 │       ├── lekcja/                     # prowadzenie lekcji
 │       ├── cwiczenie/                  # generator ćwiczeń (3 poziomy)
-│       ├── review-kodu/                # sokratejski review + check_syntax.sh
+│       ├── review-kodu/                # sokratejski review + check_syntax.sh/.ps1
 │       ├── quiz/                       # quizy powtórkowe między lekcjami
 │       ├── reset-kursu/                # reset miękki/pełny z backupem
 │       ├── pomoc/                      # lista komend w czacie
 │       ├── baza-wiedzy/                # odświeżanie z repozytoriów źródłowych
-│       └── postep/                     # śledzenie postępu (narzędzie w Go)
+│       └── postep/                     # śledzenie postępu (narzędzie w Go + wrappery)
 ├── wiedza/                             # lokalna baza wiedzy
 │   ├── zrodlo/                         # mirror golang-for-python-developers (32 pliki)
 │   ├── przyklady/                      # mirror golang-examples (13) + kod/ z golang20230314 (24 .go)
@@ -200,7 +200,7 @@ Komendy wpisujesz w Claude Code — to **frazy w języku naturalnym**, nie forma
 
 ## Wymagania
 
-- **System operacyjny:** macOS, Linux lub Windows (PowerShell / WSL) — skill `setup-go` ma dedykowane gałęzie dla każdego
+- **System operacyjny:** macOS, Linux lub Windows — skill `setup-go` ma dedykowane gałęzie dla każdego. Na Windows agent używa Git Basha, jeśli jest; w przeciwnym razie sięga po wersje `.ps1` swoich narzędzi (`-ExecutionPolicy Bypass`, bez zmiany ustawień systemu)
 - **Go 1.22 lub nowsze** — to twarda granica. Od 1.22 zmienna pętli `for` powstaje na nowo w każdej iteracji; na starszych wersjach lekcje 5.2 i 11.1 dadzą **cichy, błędny wynik**. Sprawdzenie i instalacja przez skill `setup-go`.
 - **Claude Code** (https://claude.com/code)
 - **Edytor tekstu** — rekomendacja: VS Code + rozszerzenie Go (działa identycznie na każdym systemie)

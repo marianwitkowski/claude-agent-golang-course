@@ -222,6 +222,7 @@ Jeśli uczeń jawnie poprosi o usunięcie (`usuń stare backupy`) — pokaż lis
 | `go build -o <plik>` | ❌ | zaśmieca katalog ucznia binarką |
 | `go install` | ❌ | instaluje binarkę w systemie |
 | `bash .claude/skills/postep/postep.sh ...` | ✅ | **narzędzie kursu, nie kod ucznia** — buduje własną binarkę do `.claude/skills/postep/.bin/` |
+| `powershell -File ...postep.ps1 ...` | ✅ | to samo narzędzie na Windows bez Git Basha |
 
 **Zakaz dotyczy kodu ucznia, nie narzędzi kursu.** `postep.sh` i `check_syntax.sh` są napisane przez autora kursu, robią dokładnie jedną rzecz i nie wykonują niczego, co uczeń napisał. Wolno je wywoływać zawsze. Nie rozciągaj tego wyjątku na nic więcej: kod z `kurs/zadania/`, `kurs/projekt/` i wszystko, co uczeń wklei do czatu, pozostaje nieuruchamialne.
 
@@ -260,11 +261,32 @@ Każda komenda terminalowa, którą pokazujesz uczniowi, **MUSI** używać warto
 - `go_cmd` z `srodowisko.go_cmd` (zwykle `go`; czasem pełna ścieżka, np. `/usr/local/go/bin/go`)
 - konwencji ścieżek z `srodowisko.system` (ukośniki, `.exe` przy binarkach na Windows)
 
+## Narzędzia kursu — który wrapper na którym systemie
+
+Skille wołają dwa pomocniki. Każdy ma wersję dla powłok uniksowych (`.sh`) i dla PowerShella (`.ps1`) — **robią dokładnie to samo**, różnią się tylko powłoką.
+
+| Narzędzie | macOS / Linux / WSL / Git Bash | Windows PowerShell |
+| --- | --- | --- |
+| stan ucznia | `bash .claude/skills/postep/postep.sh <cmd>` | `powershell -ExecutionPolicy Bypass -File .claude\skills\postep\postep.ps1 <cmd>` |
+| sprawdzenie kodu | `bash .claude/skills/review-kodu/check_syntax.sh <plik>` | `powershell -ExecutionPolicy Bypass -File .claude\skills\review-kodu\check_syntax.ps1 <plik>` |
+
+**Jak wybrać:**
+1. Jeśli `srodowisko.system` ≠ `Windows` → wersja `.sh`. Koniec tematu.
+2. Jeśli `Windows` → **najpierw spróbuj `.sh`**. Claude Code na Windows zwykle ma Git Bash i wtedy wszystko działa jak na macOS.
+3. Dopiero gdy `bash` nie istnieje (`command not found`, `bash: nie znaleziono`) → przejdź na `.ps1` i zostań przy nim do końca sesji.
+
+**Argumenty komend są identyczne** w obu wersjach — `--field`, `--id`, `--build` działają tak samo. Zmienia się wyłącznie prefiks wywołania.
+
+`-ExecutionPolicy Bypass` w wywołaniu jest konieczny: domyślna polityka Windows blokuje uruchamianie skryptów `.ps1` i bez tego dostaniesz `cannot be loaded because running scripts is disabled`. Nie każ uczniowi zmieniać polityki systemowej przez `Set-ExecutionPolicy` — parametr w wywołaniu wystarcza i nie zostawia śladu w systemie.
+
+Zamiast `powershell` można użyć `pwsh` (PowerShell 7), jeśli uczeń go ma. `powershell` jest w każdym Windows domyślnie, więc to bezpieczniejszy wybór.
+
 **Procedura na start każdej sesji:**
 1. Odczytaj `srodowisko` z `student.json`:
    ```bash
    bash .claude/skills/postep/postep.sh read --field srodowisko
    ```
+   (na Windows bez Git Basha: `powershell -ExecutionPolicy Bypass -File .claude\skills\postep\postep.ps1 read --field srodowisko`)
 2. Zapamiętaj `go_cmd`, `go_version` i `system` do końca sesji
 3. We wszystkich poleceniach dla ucznia używaj tych wartości
 

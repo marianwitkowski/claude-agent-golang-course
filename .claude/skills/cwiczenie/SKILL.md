@@ -111,6 +111,8 @@ Przed wypisaniem jakiejkolwiek komendy:
 ```bash
 bash .claude/skills/postep/postep.sh read --field srodowisko
 ```
+
+> **Windows bez Git Basha:** zamień `bash <ścieżka>.sh` na `powershell -ExecutionPolicy Bypass -File <ścieżka>.ps1`. Argumenty bez zmian. Reguła wyboru — w `go-tutor.md`, sekcja „Narzędzia kursu".
 Użyj `go_cmd` i konwencji z `system` (Windows: `.\program.exe`, `type` zamiast `cat`). Jeśli puste → zapytaj o system i zaktualizuj.
 
 # Twarde zasady

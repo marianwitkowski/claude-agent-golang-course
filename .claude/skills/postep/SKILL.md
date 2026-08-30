@@ -20,9 +20,18 @@ Narzędzie wykonuje 7-krokowy protokół: odczyt → migracja → backup → mod
 
 ## Co to jest i dlaczego przez wrapper
 
-`postep` to program w Go (`postep.go`, biblioteka standardowa, bez zależności) w osobnym module `.claude/skills/postep/`. Wrapper `postep.sh`:
+`postep` to program w Go (`postep.go`, biblioteka standardowa, bez zależności) w osobnym module `.claude/skills/postep/`. Wrapper:
 - wylicza katalog główny projektu ze swojej własnej ścieżki, więc **wołasz go z dowolnego miejsca** — z korzenia repozytorium tak samo jak z `kurs/zadania`
 - buduje binarkę do `.claude/skills/postep/.bin/` przy pierwszym użyciu i przebudowuje ją tylko po zmianie źródeł (kolejne wywołania są natychmiastowe)
+
+Są dwa równoważne wrappery:
+
+| Powłoka | Wywołanie |
+| --- | --- |
+| bash / zsh (macOS, Linux, WSL, Git Bash) | `bash .claude/skills/postep/postep.sh <cmd>` |
+| Windows PowerShell | `powershell -ExecutionPolicy Bypass -File .claude\skills\postep\postep.ps1 <cmd>` |
+
+**Argumenty są identyczne.** W tym pliku wszystkie przykłady są w wersji `bash` — na Windows bez Git Basha podmień sam prefiks. Wyboru dokonujesz raz na sesję, zgodnie z sekcją „Narzędzia kursu" w `go-tutor.md`.
 
 To **jedyne** miejsce, w którym wolno ci wywołać `go build`, i dotyczy narzędzia kursu, nie kodu ucznia. Zakaz uruchamiania kodu ucznia obowiązuje bez zmian.
 

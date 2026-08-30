@@ -17,6 +17,8 @@ Doprowadzić ucznia do **samodzielnego zrozumienia** jednego konceptu Go w ciąg
 bash .claude/skills/postep/postep.sh read --field srodowisko
 ```
 
+> **Windows bez Git Basha:** zamień `bash <ścieżka>.sh` na `powershell -ExecutionPolicy Bypass -File <ścieżka>.ps1`. Argumenty bez zmian. Reguła wyboru — w `go-tutor.md`, sekcja „Narzędzia kursu".
+
 Zapamiętaj `go_cmd`, `go_version` i `system` na całą sesję.
 
 - Lekcje w `wiedza/lekcje/` używają konwencji **macOS/Linux**. Uczeń na Windows → tłumacz `./program` na `.\program.exe`, `cat` na `type`, `export X=y` na `$env:X="y"`. To NIENEGOCJOWALNE.

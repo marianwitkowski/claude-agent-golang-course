@@ -5,7 +5,7 @@ Każda operacja modyfikująca:
   1. Wczytuje student.json (lub tworzy domyślny przy `init`).
   2. Migruje schemat (v0 → v1 → v2) jeśli stary.
   3. Backupuje obecny plik do postep/backups/student.{ISO}.json.
-  4. Modyfikuje obiekt w pamięci (Python).
+  4. Modyfikuje obiekt w pamięci.
   5. Zapisuje do postep/student.json.tmp.
   6. Waliduje (re-parse JSON).
   7. Atomowy mv .tmp → student.json (Path.replace).

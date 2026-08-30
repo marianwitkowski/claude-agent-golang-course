@@ -38,7 +38,7 @@ wiedza/
 | `marianwitkowski/golang-examples` | materiał na ćwiczenia i projekt | `wiedza/przyklady/` | 13 `.md` |
 | `marianwitkowski/golang20230314` | minimalne przykłady kodu | `wiedza/przyklady/kod/` | 24 `.go` |
 
-**Uwaga o materiale źródłowym:** repozytorium główne jest pisane **dla programistów Pythona**. Kurs jest dla osób, które nigdy nie programowały, więc bierzemy z niego wyłącznie treść o Go. Pliki `71-skladnia.md`, `72-przeksztalcenie.md` i `73-zaleznosci.md` to czyste porównania Python↔Go — **w lekcjach nieużywane**, trzymane wyłącznie jako referencja.
+**Uwaga o materiale źródłowym:** repozytorium główne zakłada czytelnika, który zna już inny język programowania. Kurs jest dla osób, które nigdy nie programowały, więc bierzemy z niego wyłącznie treść o Go. Pliki `71-skladnia.md`, `72-przeksztalcenie.md` i `73-zaleznosci.md` to czyste zestawienia Go z innym językiem — **w lekcjach nieużywane**, trzymane wyłącznie jako referencja.
 
 **Uwaga o `golang20230314`:** w oryginale pliki leżą w katalogach `Dzien01/` i `Dzien02/`. Lokalnie są spłaszczone do `Dzien01-01-zmienne.go` itd. (jeden katalog, prefiks w nazwie). Przy odświeżeniu zachowaj tę konwencję.
 
@@ -396,7 +396,7 @@ Gdy uczeń mówi "sprawdź czy baza aktualna": wykonaj **kroki 1-5**, **bez krok
 1. Sprawdź `wiedza/INDEX.md` — który plik i sekcja odpowiada lekcji (pole `zrodlo` we frontmatterze lekcji też to podaje)
 2. Przeczytaj odpowiedni fragment `wiedza/zrodlo/NN-*.md`
 3. **Sprawdź `wiedza/AKTUALIZACJE.md`** — czy temat ma deltę
-4. **Zdejmij warstwę porównań do Pythona** — uczeń go nie zna
+4. **Zdejmij warstwę porównań do innych języków** — uczeń żadnego nie zna
 
 # Lista plików źródłowych
 
@@ -424,9 +424,9 @@ Gdy uczeń mówi "sprawdź czy baza aktualna": wykonaj **kroki 1-5**, **bez krok
 62-debugowanie            — go vet, delve, diagnostyka
 63-moduly                 — go mod, zależności, wersjonowanie
 64-wyjatki                — error jako wartość, panic/recover, opakowywanie
-71-skladnia               — PORÓWNANIE z Pythonem — nieużywane w lekcjach
-72-przeksztalcenie        — PORÓWNANIE z Pythonem — nieużywane w lekcjach
-73-zaleznosci             — PORÓWNANIE z Pythonem — nieużywane w lekcjach
+71-skladnia               — ZESTAWIENIE z innym językiem — nieużywane w lekcjach
+72-przeksztalcenie        — ZESTAWIENIE z innym językiem — nieużywane w lekcjach
+73-zaleznosci             — ZESTAWIENIE z innym językiem — nieużywane w lekcjach
 81-aplikacja-cli          — narzędzie wiersza poleceń (moduł 12)
 82-aplikacja-web          — web (tylko wzmianka w 12.4)
 83-aplikacja-bazadanych   — bazy danych (tylko wzmianka w 12.4)

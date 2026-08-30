@@ -1,10 +1,10 @@
 # Indeks bazy wiedzy — mapowanie źródeł na lekcje
 
-> **Po co ten plik?** Materiały w `wiedza/zrodlo/` to 31 plików wykładowych napisanych **dla programistów Pythona**. Kurs prowadzony przez agenta jest dla **kompletnie początkujących** — potrzebuje mniejszych jednostek (30–60 min) i innej kolejności. Ten plik mówi: który fragment którego źródła odpowiada której lekcji.
+> **Po co ten plik?** Materiały w `wiedza/zrodlo/` to 31 plików wykładowych napisanych dla czytelnika, który zna już inny język programowania. Kurs prowadzony przez agenta jest dla **kompletnie początkujących** — potrzebuje mniejszych jednostek (30–60 min) i innej kolejności. Ten plik mówi: który fragment którego źródła odpowiada której lekcji.
 
-> **⚠️ Uwaga o źródłach:** pliki w `zrodlo/` zawierają porównania do Pythona ("w Pythonie napisałbyś..."). W lekcjach dla początkującego **te porównania są wycięte** — bierzemy tylko treść o Go. Nie cytuj porównań uczniowi.
+> **⚠️ Uwaga o źródłach:** pliki w `zrodlo/` miejscami zestawiają Go z innym językiem („tam napisałbyś..."). W lekcjach dla początkującego **te porównania są wycięte** — bierzemy tylko treść o Go. Nie cytuj ich uczniowi.
 
-> **⚠️ Komendy w lekcjach** są w wersji macOS/Linux (ścieżki z `/`). Na Windows separator to `\`, a `go` to nadal `go` — nie ma odpowiednika `python3` vs `py`. Agent tłumaczy ścieżki w trakcie sesji.
+> **⚠️ Komendy w lekcjach** są w wersji macOS/Linux (ścieżki z `/`). Na Windows separator to `\`, a sama komenda `go` jest identyczna na każdym systemie. Agent tłumaczy ścieżki w trakcie sesji.
 
 > **Jak agent z tego korzysta:**
 > 1. Przy generowaniu programu (`program-kursu`) — bierze listę lekcji stąd
@@ -19,7 +19,7 @@
 
 | Katalog | Zawartość | Rola |
 | --- | --- | --- |
-| `wiedza/zrodlo/` | 31 md z `marianwitkowski/golang-for-python-developers` | kanon merytoryczny (składnia, semantyka) |
+| `wiedza/zrodlo/` | 31 md z repozytorium źródłowego | kanon merytoryczny (składnia, semantyka) |
 | `wiedza/przyklady/` | 13 md z `marianwitkowski/golang-examples` | materiał na ćwiczenia i projekt końcowy |
 | `wiedza/przyklady/kod/` | 24 pliki `.go` z `marianwitkowski/golang20230314` | minimalne działające przykłady do eksperymentów |
 | `wiedza/lekcje/` | 38 lekcji sokratejskich | **scenariusze prowadzenia** — to czytasz w pierwszej kolejności |
@@ -33,7 +33,7 @@
 
 | Lekcja | Temat | Źródło | Aktualizacja |
 | --- | --- | --- | --- |
-| 1.1 | Czym jest Go i do czego służy | `01-dlaczego-go.md`, `02-podstawy-go.md` (bez porównań do Pythona) | `[ogólne]` |
+| 1.1 | Czym jest Go i do czego służy | `01-dlaczego-go.md`, `02-podstawy-go.md` (bez porównań do innych języków) | `[ogólne]` |
 | 1.2 | Pierwszy program — `go run`, `package main`, `func main` | `11-pierwszy-program.md` | `[moduł 1]` |
 | 1.3 | Edytor, terminal, `gofmt` — workflow ucznia | `11-pierwszy-program.md`, `71-skladnia.md` (tylko część o formatowaniu) | `[moduł 1]` |
 
@@ -161,4 +161,4 @@
 | Mikroserwisy, gRPC, Kubernetes | Poziom architektoniczny | 12.4 |
 | `context.Context` | Sensowny dopiero przy sieci i timeoutach | 11.3 — jedno zdanie |
 | Refleksja, `unsafe`, cgo | Nigdy dla początkującego | — |
-| Porównania Go ↔ Python (`71`, `72`, `73`) | Uczeń nie zna Pythona | — |
+| Zestawienia Go z innym językiem (`71`, `72`, `73`) | Uczeń nie zna żadnego innego języka | — |

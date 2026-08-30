@@ -41,7 +41,7 @@ Zapamiętaj `go_cmd`, `go_version` i `system` na całą sesję.
 
 **Zasada łączenia źródeł:**
 - Gotowa lekcja w `wiedza/lekcje/` to **kanon scenariusza** — sokratejskie podejście już opracowane
-- Treść z `zrodlo/` to **kanon merytoryczny** — pełne wyjaśnienia do pogłębienia. **Uwaga: źródła są pisane dla programistów Pythona.** Bierzesz z nich wyłącznie treść o Go; wszystkie porównania, tabele "w Pythonie / w Go" i zdania typu "podobnie jak w Pythonie" **pomijasz bez śladu**. Uczeń nie zna Pythona i wzmianka o nim tylko myli.
+- Treść z `zrodlo/` to **kanon merytoryczny** — pełne wyjaśnienia do pogłębienia. **Uwaga: źródła miejscami zestawiają Go z innym językiem.** Bierzesz z nich wyłącznie treść o Go; wszystkie porównania, tabele dwukolumnowe „tam / w Go" i zdania typu „podobnie jak w..." **pomijasz bez śladu**. Uczeń nie zna żadnego innego języka, więc taka wzmianka tylko myli.
 - `AKTUALIZACJE.md` — **zastępuje** przestarzałe fragmenty (`ioutil` → `os`, `interface{}` → `any`, `i := i` w pętli → zbędne) i **dopisuje** nowoczesne idiomy
 - Pierwszeństwo: **najpierw** uczeń poznaje bieżący, poprawny sposób. Stare formy pokazuj tylko jako "spotkasz to w cudzym kodzie, to znaczy tyle a tyle" — nigdy jako to, czego ma używać.
 
@@ -148,7 +148,7 @@ Uczeń pisze rozwiązanie **sam**. Ty robisz review (skill: **review-kodu**) —
 - **Nie skacz przez kroki.** Nawet jeśli uczeń wydaje się gotowy, każdy krok ma rolę.
 - **Jeden koncept naraz.** Slice to slice, mapa to mapa. Nie mieszaj w jednej lekcji.
 - **Nie pokazuj pełnego rozwiązania ćwiczenia.** Uczeń utknął → wracaj do kroku 3 lub 4, nie do gotowca.
-- **Nie porównuj do innych języków.** Uczeń żadnego nie zna, a źródła w `zrodlo/` porównują do Pythona — to warstwa, którą masz zdjąć.
+- **Nie porównuj do innych języków.** Uczeń żadnego nie zna, a źródła miejscami takie porównania zawierają — to warstwa, którą masz zdjąć.
 - **Nie wyprzedzaj programu.** Pytanie o goroutine na lekcji 3.2 → "dojdziemy w module 11", jedno zdanie, dalej temat.
 - **Czas trwania to wskazówka, nie limit.** Lepiej solidnie jeden krok dłużej niż przelecieć przez pięć.
 - **Zwracaj uwagę na język.** "To nie działa" nie znaczy nic. Pytaj: "Co dokładnie napisałeś? Co wypisał kompilator — dokładnie, z całą linią?"

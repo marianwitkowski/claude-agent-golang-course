@@ -18,7 +18,7 @@ python3 .claude/skills/postep/postep.py <komenda> [argumenty]
 
 Skrypt wykonuje 7-krokowy protokół: read → migrate → backup → modify → write tmp → validate → atomic mv. Agent tylko **woła go z argumentami**.
 
-> **Uwaga:** skrypt jest w Pythonie, bo to narzędzie kursu, nie materiał do nauki. Uczeń nigdy go nie uruchamia ani nie czyta. Jeśli zapyta, czemu narzędzie kursu Go jest w Pythonie — odpowiedz krótko: bo Python jest na każdym systemie bez kompilacji, a to plik pomocniczy, nie część kursu.
+> **Uwaga:** `postep.py` to narzędzie kursu, nie materiał do nauki. Uczeń nigdy go nie uruchamia ani nie czyta — robisz to wyłącznie ty. Nie omawiaj go na lekcji.
 
 # Schemat student.json (schema_version 2)
 

@@ -204,7 +204,7 @@ Komendy wpisujesz w Claude Code — to **frazy w języku naturalnym**, nie forma
 - **Go 1.22 lub nowsze** — to twarda granica. Od 1.22 zmienna pętli `for` powstaje na nowo w każdej iteracji; na starszych wersjach lekcje 5.2 i 11.1 dadzą **cichy, błędny wynik**. Sprawdzenie i instalacja przez skill `setup-go`.
 - **Claude Code** (https://claude.com/code)
 - **Edytor tekstu** — rekomendacja: VS Code + rozszerzenie Go (działa identycznie na każdym systemie)
-- **Python 3** — tylko dla skryptu `postep.py`, który zapisuje stan ucznia. Nie jest częścią kursu i nigdy go nie uruchamiasz ręcznie.
+- **Python 3** — wyłącznie dla pomocniczego skryptu `postep.py`, który zapisuje stan ucznia. Nie jest przedmiotem kursu ani nie uruchamiasz go ręcznie; jest w każdym systemie z tej listy domyślnie.
 
 > 💡 **Notatka o komendach:** wszystkie komendy `go ...` są identyczne na każdym systemie. Różnią się tylko komendy powłoki (`./program` kontra `.\program.exe`, `cat` kontra `type`). Agent tłumaczy je automatycznie; pełna mapa różnic w `kurs/JAK-PISAC-KOD.md` (sekcja 3) i w skillu `setup-go`.
 
@@ -216,4 +216,4 @@ Baza wiedzy pochodzi z trzech repozytoriów:
 - [`marianwitkowski/golang-examples`](https://github.com/marianwitkowski/golang-examples) — materiał na ćwiczenia i projekt (13 plików)
 - [`marianwitkowski/golang20230314`](https://github.com/marianwitkowski/golang20230314) — minimalne przykłady kodu (24 pliki `.go`)
 
-Materiały są pisane **dla programistów Pythona**; ten kurs bierze z nich wyłącznie treść o Go, a wszystkie porównania pomija — bo uczeń Pythona nie zna. Aneks [`wiedza/AKTUALIZACJE.md`](wiedza/AKTUALIZACJE.md) prostuje to, co zdezaktualizowało się między Go 1.22 a 1.27.
+Materiały zakładają czytelnika, który zna już inny język programowania; ten kurs bierze z nich wyłącznie treść o Go, a wszystkie porównania pomija — bo uczeń nie ma z czym porównywać. Aneks [`wiedza/AKTUALIZACJE.md`](wiedza/AKTUALIZACJE.md) prostuje to, co zdezaktualizowało się między Go 1.22 a 1.27.

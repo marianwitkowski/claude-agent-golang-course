@@ -207,6 +207,18 @@ Komendy wpisujesz w Claude Code — to **frazy w języku naturalnym**, nie forma
 
 > 💡 **Notatka o komendach:** wszystkie komendy `go ...` są identyczne na każdym systemie. Różnią się tylko komendy powłoki (`./program` kontra `.\program.exe`, `cat` kontra `type`). Agent tłumaczy je automatycznie; pełna mapa różnic w `kurs/JAK-PISAC-KOD.md` (sekcja 3) i w skillu `setup-go`.
 
+## Model
+
+Agent jest przypięty do **Sonnet** — w nagłówku `.claude/agents/go-tutor.md`:
+
+```yaml
+model: sonnet
+```
+
+Wybór podyktowany kosztem: kurs to dziesiątki długich sesji, a instrukcje w skillach są na tyle szczegółowe, że nie wymagają od modelu domyślania się.
+
+Chcesz inny model — zmień tę jedną linię (`opus`, `haiku`, albo `inherit`, żeby użyć modelu bieżącej sesji Claude Code). Kurs był budowany i sprawdzany na Sonnecie; na innych modelach powinien działać, bo instrukcje są jawne i nie polegają na niedopowiedzeniach — ale nie sprawdzałem tego. Jeśli przesiadka coś zepsuje, najbardziej podatne są dwie rzeczy: **trzymanie rytmu 3-krokowego** (model gadatliwszy chętniej tłumaczy, zamiast pytać) i **respektowanie zakazu uruchamiania kodu ucznia**.
+
 ## Materiały źródłowe
 
 Baza wiedzy pochodzi z trzech repozytoriów:
@@ -216,3 +228,11 @@ Baza wiedzy pochodzi z trzech repozytoriów:
 - [`marianwitkowski/golang20230314`](https://github.com/marianwitkowski/golang20230314) — minimalne przykłady kodu (24 pliki `.go`)
 
 Materiały zakładają czytelnika, który zna już inny język programowania; ten kurs bierze z nich wyłącznie treść o Go, a wszystkie porównania pomija — bo uczeń nie ma z czym porównywać. Aneks [`wiedza/AKTUALIZACJE.md`](wiedza/AKTUALIZACJE.md) prostuje to, co zdezaktualizowało się między Go 1.22 a 1.27.
+
+## Licencja
+
+[MIT](LICENSE) — Copyright (c) 2026 Marian Witkowski.
+
+Wolno używać, zmieniać, tłumaczyć i rozpowszechniać, także komercyjnie, **pod warunkiem zachowania informacji o autorstwie** (noty copyright i treści licencji) w każdej kopii i w każdej istotnej części. Szczegóły i wyjaśnienie po polsku — w pliku [`LICENSE`](LICENSE).
+
+Katalogi `wiedza/zrodlo/` i `wiedza/przyklady/` to kopie osobnych repozytoriów tego samego autora i podlegają warunkom tam podanym.

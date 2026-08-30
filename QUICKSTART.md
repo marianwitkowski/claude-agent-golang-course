@@ -213,6 +213,8 @@ gh repo create claude-agent-go-course --public --source=. --push
 
 `.gitignore` zadba, żeby Twój postęp i Twój kod nie trafiły do publicznego repozytorium — można bezpiecznie udostępnić **strukturę kursu**, a każdy uczeń sklonuje i ma własny `student.json`.
 
+Repozytorium ma plik [`LICENSE`](LICENSE) (MIT). Jeśli publikujesz własną, zmienioną wersję — zostaw notę o autorstwie oryginału.
+
 ---
 
 ## 🎓 Filozofia kursu — w 3 zdaniach

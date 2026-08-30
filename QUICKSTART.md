@@ -18,7 +18,7 @@ Krótki przewodnik dla osoby zaczynającej naukę Go z tym kursem.
 
 ### 1. Sprawdź, gdzie jesteś
 ```sh
-cd ~/Projects/ITMOBILE-agent-nauka-golang
+cd ~/Projects/claude-agent-golang-course
 pwd
 ```
 Musisz być **w tym katalogu** — agent i skille są lokalne (`.claude/`).
@@ -116,7 +116,7 @@ Po prostu napisz `ucz mnie Go` albo `kontynuujemy`:
 ## 📂 Co jest gdzie
 
 ```
-ITMOBILE-agent-nauka-golang/
+claude-agent-golang-course/
 │
 ├── .claude/                      ← agent + 10 skilli (NIE dotykaj)
 ├── wiedza/                       ← baza wiedzy (38 gotowych lekcji + źródła)
@@ -208,7 +208,7 @@ git init
 git add .
 git status                # sprawdź, czy nic prywatnego (student.json itd. jest ignorowany)
 git commit -m "Initial: agent + baza wiedzy"
-gh repo create claude-agent-go-course --public --source=. --push
+gh repo create claude-agent-golang-course --public --source=. --push
 ```
 
 `.gitignore` zadba, żeby Twój postęp i Twój kod nie trafiły do publicznego repozytorium — można bezpiecznie udostępnić **strukturę kursu**, a każdy uczeń sklonuje i ma własny `student.json`.

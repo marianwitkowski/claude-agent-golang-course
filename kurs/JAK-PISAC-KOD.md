@@ -55,7 +55,7 @@ Chcesz coś sprawdzić "na brudno" — poproś agenta o katalog roboczy albo utw
 1. Pobierz z https://code.visualstudio.com/
 2. Zainstaluj rozszerzenie **Go** od Google (Extensions → wyszukaj "Go")
 3. Przy pierwszym otwarciu pliku `.go` rozszerzenie zapyta o doinstalowanie narzędzi (`gopls`) → **zgódź się**
-4. Otwórz cały katalog kursu: `File → Open Folder → ITMOBILE-agent-nauka-golang`
+4. Otwórz cały katalog kursu: `File → Open Folder → claude-agent-golang-course`
 
 ### Jedno ustawienie warte pięciu sekund
 
@@ -103,7 +103,7 @@ Agent dopasuje komendy do Twojego systemu — powiedz mu na początku, jakiego u
 #### 1. Przejdź do katalogu z zadaniami
 
 ```sh
-cd ~/Projects/ITMOBILE-agent-nauka-golang/kurs/zadania
+cd ~/Projects/claude-agent-golang-course/kurs/zadania
 ```
 
 `cd` = "change directory". Sprawdź, gdzie jesteś:

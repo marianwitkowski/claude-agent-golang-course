@@ -13,7 +13,9 @@ if [ "$1" = "--build" ]; then
   dir="$2"
   [ -d "$dir" ] || { echo "BŁĄD: brak katalogu $dir"; exit 2; }
   echo "== kompilacja (bez uruchamiania): $dir =="
-  go build -o /dev/null "./$dir" && echo "OK: kompiluje się"
+  # cd do katalogu zadania: go szuka go.mod idąc w górę, więc działa
+  # niezależnie od tego, skąd wywołano skrypt.
+  ( cd "$dir" && go build -o /dev/null . ) && echo "OK: kompiluje się"
   exit $?
 fi
 

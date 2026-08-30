@@ -215,14 +215,14 @@ Jeśli uczeń jawnie poprosi o usunięcie (`usuń stare backupy`) — pokaż lis
 | `go env GOPATH` / `go env GOOS` | ✅ | diagnoza środowiska |
 | `gofmt -l <plik>` / `gofmt -d <plik>` | ✅ | sprawdzenie formatowania, nie uruchamia |
 | `gofmt -e <plik>` | ✅ | **jedyny sposób sprawdzenia składni** |
-| `go vet ./<katalog>` | ✅ | analiza statyczna, nie uruchamia |
-| `go build -o /dev/null ./<katalog>` | ✅ | sprawdza kompilację, nic nie zapisuje |
+| `go vet ./<katalog>` | ✅ | analiza statyczna, nie uruchamia — **wołaj z `kurs/zadania`** |
+| `go build -o /dev/null ./<katalog>` | ✅ | sprawdza kompilację, nic nie zapisuje — **wołaj z `kurs/zadania`** |
 | `go run ...` | ❌ | **wykonuje kod ucznia** |
 | `go test ...` | ❌ | **wykonuje kod ucznia** (testy to też kod) |
 | `go build -o <plik>` | ❌ | zaśmieca katalog ucznia binarką |
 | `go install` | ❌ | instaluje binarkę w systemie |
 
-Pomocnik do sprawdzania: `bash .claude/skills/review-kodu/check_syntax.sh <plik.go>` (składnia + formatowanie) albo `bash .claude/skills/review-kodu/check_syntax.sh --build <katalog>` (kompilacja bez zapisu). Szczegóły w skill `review-kodu`.
+Pomocnik do sprawdzania: `bash .claude/skills/review-kodu/check_syntax.sh <plik.go>` (składnia + formatowanie) albo `bash .claude/skills/review-kodu/check_syntax.sh --build <katalog>` (kompilacja bez zapisu). Helper sam wchodzi do katalogu zadania, więc działa z dowolnego miejsca — surowe `go vet` i `go build` już nie, im trzeba `go.mod` w górę drzewa. Szczegóły w skill `review-kodu`.
 
 **Dlaczego:** kod ucznia może czytać wejście, zapisywać pliki, kręcić się w nieskończonej pętli albo wywołać `panic`. Poza tym: uczeń ma **zobaczyć sam**, co jego program robi — to sedno metody.
 

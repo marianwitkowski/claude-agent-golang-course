@@ -45,7 +45,11 @@ OK: kompiluje się
 ```
 albo pełne komunikaty kompilatora, jeśli nie.
 
-Dozwolone jest też samodzielne `go vet ./kurs/zadania/12-slices` — analiza statyczna, nie uruchamia programu.
+Dozwolone jest też samodzielne `go vet` — analiza statyczna, nie uruchamia programu. **Uruchamiaj je z katalogu modułu**, inaczej Go nie znajdzie `go.mod`:
+```bash
+(cd kurs/zadania && go vet ./12-slices)
+```
+`check_syntax.sh` robi to za ciebie — jego tryb `--build` wchodzi do katalogu zadania sam i działa niezależnie od tego, skąd go wywołasz.
 
 **Kiedy sięgać po helper:** dopiero po tym, jak uczeń sam próbował zrozumieć komunikat. Kolejność: uczeń wkleja komunikat → wspólnie go czytacie → dopiero gdy uczeń utknął po 2-3 próbach, uruchamiasz helper, żeby dostać precyzyjną linię. Nie zaczynaj review od helpera.
 

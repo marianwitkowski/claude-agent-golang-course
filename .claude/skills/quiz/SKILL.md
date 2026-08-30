@@ -102,7 +102,7 @@ Pytania **generuj na żywo** pod to, co uczeń przerobił. Poniżej szablony jak
 - C: Czemu `var m map[string]int; m["a"] = 1` wywala program, a `var s []int; s = append(s, 1)` nie?
 
 ## Moduł 5 (funkcje)
-- A: Co zwróci `func f() (int, error) { return 5, nil }` przypisane do jednej zmiennej?
+- A: Co się stanie przy `x := f()`, gdy `func f() (int, error)`? (odpowiedź: nie skompiluje się — `assignment mismatch: 1 variable but f returns 2 values`)
 - B: Po co funkcji zwracać dwie wartości zamiast jednej?
 - C: Kiedy wykona się `defer plik.Close()` — od razu czy na końcu funkcji?
 

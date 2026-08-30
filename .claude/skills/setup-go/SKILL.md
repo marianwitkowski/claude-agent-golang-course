@@ -281,7 +281,7 @@ Zapis przez narzędzie `postep` jest atomowy — nie ma ryzyka uszkodzenia `stud
 
 Po zakończeniu zwróć krótko:
 - `OK: Go 1.X.Y na <system>, komenda: <go_cmd>, edytor: <nazwa> — środowisko zapisane`
-- `STARY GO: 1.21.x — wymaga aktualizacji przed lekcją 1.2`
+- `STARY GO: 1.21.x — wymaga aktualizacji PRZED startem kursu` (nie zaczynajcie lekcji 1.1 na starszym Go — patrz twarde zasady wyżej)
 - `BLOCKED: <co nie działa>`
 
 **Od tego momentu** WSZYSTKIE skille edukacyjne (lekcja, cwiczenie, review-kodu, quiz) muszą używać `srodowisko.go_cmd` z `student.json` i konwencji ścieżek z `srodowisko.system`.

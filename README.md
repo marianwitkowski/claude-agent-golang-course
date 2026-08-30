@@ -50,7 +50,7 @@ Agent `go-tutor` przeprowadzi Cię przez:
 │       ├── baza-wiedzy/                # odświeżanie z repozytoriów źródłowych
 │       └── postep/                     # śledzenie postępu (narzędzie w Go + wrappery)
 ├── wiedza/                             # lokalna baza wiedzy
-│   ├── zrodlo/                         # mirror golang-for-python-developers (32 pliki)
+│   ├── zrodlo/                         # mirror (31 plików treści + README repo = 32)
 │   ├── przyklady/                      # mirror golang-examples (13) + kod/ z golang20230314 (24 .go)
 │   ├── AKTUALIZACJE.md                 # delta: Go 1.22 → 1.27
 │   ├── INDEX.md                        # mapowanie źródeł → 38 lekcji sokratejskich
@@ -211,7 +211,7 @@ Komendy wpisujesz w Claude Code — to **frazy w języku naturalnym**, nie forma
 
 Baza wiedzy pochodzi z trzech repozytoriów:
 
-- [`marianwitkowski/golang-for-python-developers`](https://github.com/marianwitkowski/golang-for-python-developers) — kanon merytoryczny (32 pliki)
+- [`marianwitkowski/golang-for-python-developers`](https://github.com/marianwitkowski/golang-for-python-developers) — kanon merytoryczny (31 plików treści + `README.md`)
 - [`marianwitkowski/golang-examples`](https://github.com/marianwitkowski/golang-examples) — materiał na ćwiczenia i projekt (13 plików)
 - [`marianwitkowski/golang20230314`](https://github.com/marianwitkowski/golang20230314) — minimalne przykłady kodu (24 pliki `.go`)
 

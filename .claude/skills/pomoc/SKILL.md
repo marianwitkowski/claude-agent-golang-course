@@ -25,6 +25,7 @@ Wypisz w czacie poniższą listę. **Nie modyfikuj** kategorii ani ikon — ucze
   • daj mi przykład           → minimalny przykład kodu
   • co to znaczy [termin]?    → wyjaśnienie sokratejskie
   • powtórzmy tę lekcję       → od początku
+  • powtórzmy [temat]         → krótka powtórka jednego konceptu
 
 ✏️  Ćwiczenia i review
   • daj mi zadanie            → ćwiczenie z bieżącej lekcji

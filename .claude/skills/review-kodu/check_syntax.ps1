@@ -29,7 +29,7 @@ if ($argumenty[0] -eq '--build' -or $argumenty[0] -eq '-build') {
     if ($argumenty.Count -ne 2) { Uzycie }
     $katalog = $argumenty[1]
     if (-not (Test-Path $katalog -PathType Container)) {
-        Write-Host "BŁĄD: brak katalogu $katalog"
+        [Console]::Error.WriteLine("BŁĄD: brak katalogu $katalog")
         exit 2
     }
 
@@ -55,7 +55,7 @@ if ($argumenty[0] -eq '--build' -or $argumenty[0] -eq '-build') {
 # --- tryb pliku ---
 $plik = $argumenty[0]
 if (-not (Test-Path $plik -PathType Leaf)) {
-    Write-Host "BŁĄD: brak pliku $plik"
+    [Console]::Error.WriteLine("BŁĄD: brak pliku $plik")
     exit 2
 }
 

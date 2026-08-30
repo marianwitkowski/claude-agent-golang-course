@@ -17,7 +17,7 @@
 | 1.24 | 2025-02-11 | `os.Root`, `tool` w `go.mod`, `t.Context()`, `b.Loop()` |
 | 1.25 | 2025-08-12 | `sync.WaitGroup.Go()`, `testing/synctest`, `go doc -http` |
 | 1.26 | 2026-02-10 | `new(wyrażenie)`, `errors.AsType`, `go fix` z modernizatorami |
-| 1.27 | 2026-08-19 | pakiet `uuid`, `encoding/json` przepisany na silnik v2 (bez zmiany zachowania), `strings.CutLast` |
+| 1.27 | 2026-08-19 | metody z własnymi parametrami typowymi, pakiet `uuid`, `encoding/json` przepisany na silnik v2 (bez zmiany zachowania), `strings.CutLast` |
 
 **Wersja minimalna dla kursu: 1.22.** Wszystko poniżej ma inną semantykę pętli — to jest twarda granica, nie preferencja.
 
@@ -107,6 +107,12 @@ Pakiety `slices` i `maps` są w bibliotece standardowej (od 1.21). Źródła z 2
 
 ---
 
+## `[moduł 5]` — funkcje
+
+**Składnia funkcji nie zmieniła się między 1.22 a 1.27.** Jedyna nowość warta odnotowania:
+
+**Metody z własnymi parametrami typowymi (1.27).** Do 1.26 metoda mogła używać wyłącznie parametrów typowych swojego typu; od 1.27 może zadeklarować własne. To domknięcie generyków — **poza kursem**, wymienione tu, bo lekcja 5.1 się na nie powołuje. Jeśli uczeń natrafi na taki zapis w cudzym kodzie: jedno zdanie, że to generyki, i odesłanie do 12.4.
+
 ## `[moduł 6]` — błędy
 
 - `fmt.Errorf("...: %w", err)` + `errors.Is` / `errors.As` — standard od 1.13, w źródłach jest.
@@ -123,6 +129,16 @@ Pakiety `slices` i `maps` są w bibliotece standardowej (od 1.21). Źródła z 2
 
 ---
 
+## `[moduł 7]` — struktury i metody
+
+**`new(wyrażenie)` (1.26).** Wcześniej `new` przyjmowało wyłącznie typ (`new(int)` → wskaźnik do zera). Od 1.26 przyjmuje wartość: `new(42)` daje wskaźnik do liczby 42. Upraszcza pola opcjonalne, gdzie `*int` odróżnia „zero" od „brak" — przydatne przy JSON-ie z modułu 9.
+
+**Alokacja na stosie (1.26).** Struktury o znanym rozmiarze bywają alokowane na stosie zamiast na stercie. Szybciej, **bez żadnej zmiany w kodzie** — uczniowi nic o tym nie mów, chyba że zapyta, czemu Go „nie ma” zarządzania pamięcią.
+
+**Wykrywanie `nil` (1.25).** Kompilator poprawnie rozpoznaje użycie wskaźnika `nil` w przypadkach, które wcześniej dawały mylące wyniki. Kod pisany wg zasady „najpierw sprawdź `err`, potem używaj wyniku" jest na to odporny z definicji.
+
+**`errors.AsType[T]` (1.26)** opiera się na własnych typach błędów, czyli na strukturach z tego modułu — patrz `[moduł 6]`.
+
 ## `[moduł 8]` — interfejsy
 
 - **`any` zamiast `interface{}`** (alias od 1.18). Piszemy `any`. `interface{}` w kodzie ucznia nie jest błędem, ale to stary zapis.
@@ -134,7 +150,8 @@ Pakiety `slices` i `maps` są w bibliotece standardowej (od 1.21). Źródła z 2
 
 - **`os.ReadFile` / `os.WriteFile`** (od 1.16) zamiast `ioutil.ReadFile` / `ioutil.WriteFile`. Pakiet `ioutil` jest **przestarzały** — jeśli źródło go używa, tłumacz na `os`.
 - **`os.Root`** (1.24, rozszerzony w 1.25) — operacje na plikach ograniczone do jednego katalogu, nie da się z niego "uciec" przez `../`. Wzmianka przy bezpieczeństwie, nie ćwiczenie.
-- **`encoding/json`** stoi od 1.27 na nowym silniku (v2): ten sam interfejs, to samo zachowanie, wyraźnie lepsza wydajność. Surowsze reguły — odrzucanie zduplikowanych kluczy i niepoprawnego UTF-8 — to domena **osobnego pakietu `encoding/json/v2`**, po który trzeba sięgnąć świadomie. Kod ucznia i pliki, które dotąd działały, działają dalej.
+- **`encoding/json`** stoi od 1.27 na nowym silniku (v2). Notatki wydania mówią wprost: *„Marshaling and unmarshaling behavior is preserved, but the exact text of error messages may differ"*. Czyli: ten sam interfejs, to samo zachowanie, lepsza wydajność — **zmienić może się tylko treść komunikatów błędów**. Surowsze reguły (odrzucanie zduplikowanych kluczy i niepoprawnego UTF-8) należą do **osobnego pakietu `encoding/json/v2`**, po który trzeba sięgnąć świadomie.
+  > **Praktyczna konsekwencja dla agenta:** to jedyna realna różnica, jaką uczeń zobaczy. Gdy wkleja komunikat z `json.Unmarshal`, jego brzmienie może odbiegać od tego, co pamiętasz albo co stoi w materiałach — **nie prostuj ucznia po treści komunikatu**. Liczy się, na którą linię wskazuje i czego dotyczy.
 - `strings.Lines(s)`, `strings.SplitSeq`, `strings.FieldsSeq` (1.24) — iteracja po liniach bez wczytywania całej tablicy.
 - `strings.CutLast` (1.27) — obok istniejącego `strings.Cut`; przydatne do wycinania rozszerzenia pliku.
 

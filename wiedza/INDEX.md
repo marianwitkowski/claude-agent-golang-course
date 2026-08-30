@@ -1,6 +1,6 @@
 # Indeks bazy wiedzy — mapowanie źródeł na lekcje
 
-> **Po co ten plik?** Materiały w `wiedza/zrodlo/` to 31 plików wykładowych napisanych dla czytelnika, który zna już inny język programowania. Kurs prowadzony przez agenta jest dla **kompletnie początkujących** — potrzebuje mniejszych jednostek (30–60 min) i innej kolejności. Ten plik mówi: który fragment którego źródła odpowiada której lekcji.
+> **Po co ten plik?** Materiały w `wiedza/zrodlo/` to 31 plików wykładowych (plus `README.md` repozytorium — razem 32 pliki w katalogu) napisanych dla czytelnika, który zna już inny język programowania. Kurs prowadzony przez agenta jest dla **kompletnie początkujących** — potrzebuje mniejszych jednostek (30–60 min) i innej kolejności. Ten plik mówi: który fragment którego źródła odpowiada której lekcji.
 
 > **⚠️ Uwaga o źródłach:** pliki w `zrodlo/` miejscami zestawiają Go z innym językiem („tam napisałbyś..."). W lekcjach dla początkującego **te porównania są wycięte** — bierzemy tylko treść o Go. Nie cytuj ich uczniowi.
 
@@ -19,7 +19,7 @@
 
 | Katalog | Zawartość | Rola |
 | --- | --- | --- |
-| `wiedza/zrodlo/` | 31 md z repozytorium źródłowego | kanon merytoryczny (składnia, semantyka) |
+| `wiedza/zrodlo/` | 31 md z repozytorium źródłowego + jego `README.md` (32 pliki) | kanon merytoryczny (składnia, semantyka) |
 | `wiedza/przyklady/` | 13 md z `marianwitkowski/golang-examples` | materiał na ćwiczenia i projekt końcowy |
 | `wiedza/przyklady/kod/` | 24 pliki `.go` z `marianwitkowski/golang20230314` | minimalne działające przykłady do eksperymentów |
 | `wiedza/lekcje/` | 38 lekcji sokratejskich | **scenariusze prowadzenia** — to czytasz w pierwszej kolejności |
